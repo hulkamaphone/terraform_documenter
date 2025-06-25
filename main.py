@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import sys
+import os
 
 from .diagram_generator import create_conceptual_diagram, create_networking_diagram
 from .terraform_parser import find_provider, parse_terraform_directory
@@ -53,6 +54,16 @@ def main():
         networking_img=networking_diagram_path
     )
     doc_generator.create_sdd(output_filename)
+
+    # 5. Clean up temporary diagram files from disk
+    print("Step 5: Cleaning up temporary diagram files...")
+    try:
+        os.remove(conceptual_diagram_path)
+        os.remove(networking_diagram_path)
+        print("Cleanup successful.")
+    except OSError as e:
+        print(f"Error during file cleanup: {e}")
+
 
 if __name__ == "__main__":
     main()

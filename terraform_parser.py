@@ -8,7 +8,8 @@ from .utils import RESOURCE_MAP
 
 def find_provider(directory: Path) -> Optional[str]:
     """Inspects .tf files to find the primary provider."""
-    for tf_file in directory.glob('*.tf'):
+    # Use rglob to search recursively for .tf files to find the provider
+    for tf_file in directory.rglob('*.tf'):
         try:
             with open(tf_file, 'r', encoding='utf-8') as f:
                 content = f.read()
@@ -23,7 +24,10 @@ def find_provider(directory: Path) -> Optional[str]:
     return None
 
 def parse_terraform_directory(directory: Path, provider: str) -> Dict[str, Any]:
-    """Parses all .tf files in a directory and organizes resources by category."""
+    """
+    Parses all .tf files in a directory and its subdirectories recursively, 
+    and organizes resources by category.
+    """
     parsed_data = {"resources": {}, "variables": [], "modules": []}
     provider_resource_map = RESOURCE_MAP.get(provider, {})
 
@@ -34,12 +38,9 @@ def parse_terraform_directory(directory: Path, provider: str) -> Dict[str, Any]:
             reverse_resource_map[res_type] = category
             parsed_data["resources"][category] = []
             
-    all_tf_files = list(directory.glob('*.tf'))
+    all_tf_files = list(directory.rglob('*.tf'))
     
     for tf_file in all_tf_files:
-        if tf_file.name == "variables.tf":
-            print(f"INFO: Intentionally skipping known problematic file: {tf_file.name}")
-            continue
         try:
             with open(tf_file, 'r', encoding='utf-8') as f:
                 tf_dict = hcl2.load(f)
@@ -59,10 +60,24 @@ def parse_terraform_directory(directory: Path, provider: str) -> Dict[str, Any]:
                 # Extract variables
                 for variable in tf_dict.get('variable', []):
                     for var_name, var_details in variable.items():
+                        desc_list = var_details.get('description', [])
+                        description = desc_list[0] if desc_list else 'N/A'
+                        
+                        # CORRECTED: Handle non-subscriptable types for default values (e.g., numbers, booleans).
+                        default_value = var_details.get('default')
+
+                        if isinstance(default_value, list):
+                            # If it's a list, handle it as before.
+                            default_value = default_value[0] if default_value else 'N/A'
+                        elif default_value is None:
+                            # If there is no default key
+                            default_value = 'N/A'
+                        # If it's an int, bool, or string, the value is already correct.
+                        
                         parsed_data["variables"].append({
                             "name": var_name,
-                            "description": var_details.get('description', ['N/A'])[0],
-                            "default": var_details.get('default', ['N/A'])[0]
+                            "description": description,
+                            "default": default_value
                         })
 
                 # Extract modules
