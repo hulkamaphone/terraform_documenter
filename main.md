@@ -1,6 +1,6 @@
 Cloud Solution Architecture
 Project: Cross-Cloud Data Analytics Solution
-Version: 1.1
+Version: 1.2
 Date: June 25, 2025
 
 1. Overview & Executive Summary
@@ -118,6 +118,7 @@ The architecture will be implemented on Google Cloud Platform (GCP), as specifie
 4.2. Cloud Architecture Diagram
 The following diagram describes the components and data flow of the proposed solution.
 
+```mermaid
 graph TD
     subgraph AWS Environment
         direction LR
@@ -166,6 +167,7 @@ graph TD
 
     linkStyle 10 stroke:#ff9900,stroke-width:2px,stroke-dasharray: 3 3;
     linkStyle 11 stroke:#4285F4,stroke-width:2px,stroke-dasharray: 3 3;
+```
 
 4.3. Compute Architecture
 Cloud Dataflow: The primary processing engine for both batch and streaming data. It is chosen for its serverless nature, auto-scaling capabilities, and unified programming model, which reduces development overhead.
@@ -214,6 +216,7 @@ No requirement for a dedicated VPN or Interconnect is identified in the BRD. The
 5.4. Network Architecture Diagram
 The following diagram illustrates the network topology and traffic flow.
 
+```mermaid
 graph TD
     subgraph Internet / External
         U[Users / BI Tool]
@@ -247,6 +250,7 @@ graph TD
     AWS -- Batch (TLS) via Storage Transfer Service --> GCS
     AWS -- Streaming (TLS) via Pub/Sub API --> PS
     U -- Queries (HTTPS) --> BQ
+```
 
 6. Data Storage & Management
 6.1. Data Storage Solutions
