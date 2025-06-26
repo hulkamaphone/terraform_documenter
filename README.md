@@ -4,511 +4,582 @@
 
 **Version:** 1.0
 
-**Date:** June 25, 2025
+**Date:** June 26, 2025
 
-## Table of Contents
+**Table of Contents**
 
-  - [1. Overview & Executive Summary](https://www.google.com/search?q=%231-overview--executive-summary)
-      - [1.1. Introduction & Business Problem](https://www.google.com/search?q=%2311-introduction--business-problem)
-      - [1.2. Proposed Solution](https://www.google.com/search?q=%2312-proposed-solution)
-      - [1.3. Key Benefits](https://www.google.com/search?q=%2313-key-benefits)
-  - [2. Scope](https://www.google.com/search?q=%232-scope)
-      - [2.1. In Scope](https://www.google.com/search?q=%2321-in-scope)
-      - [2.2. Out of Scope](https://www.google.com/search?q=%2322-out-of-scope)
-  - [3. Business Requirements & Architectural Drivers](https://www.google.com/search?q=%233-business-requirements--architectural-drivers)
-      - [3.1. Key Requirements Summary](https://www.google.com/search?q=%2331-key-requirements-summary)
-      - [3.2. Architectural Decisions](https://www.google.com/search?q=%2332-architectural-decisions)
-  - [4. Cloud and Application Architecture](https://www.google.com/search?q=%234-cloud-and-application-architecture)
-      - [4.1. Recommended Cloud Provider](https://www.google.com/search?q=%2341-recommended-cloud-provider)
-      - [4.2. Architecture Diagram](https://www.google.com/search?q=%2342-architecture-diagram)
-      - [4.3. Compute Architecture](https://www.google.com/search?q=%2343-compute-architecture)
-      - [4.4. Application Architecture](https://www.google.com/search?q=%2344-application-architecture)
-  - [5. Network Architecture](https://www.google.com/search?q=%235-network-architecture)
-      - [5.1. Network Topology](https://www.google.com/search?q=%2351-network-topology)
-      - [5.2. Network Architecture Diagram](https://www.google.com/search?q=%2352-network-architecture-diagram)
-      - [5.3. Traffic Flow](https://www.google.com/search?q=%2353-traffic-flow)
-      - [5.4. DNS & Connectivity](https://www.google.com/search?q=%2354-dns--connectivity)
-  - [6. Data Storage & Management](https://www.google.com/search?q=%236-data-storage--management)
-      - [6.1. Data Storage Solutions](https://www.google.com/search?q=%2361-data-storage-solutions)
-      - [6.2. Data Flow & Lifecycle](https://www.google.com/search?q=%2362-data-flow--lifecycle)
-      - [6.3. Backup and Recovery](https://www.google.com/search?q=%2363-backup-and-recovery)
-  - [7. Data and Application Integration](https://www.google.com/search?q=%237-data-and-application-integration)
-      - [7.1. Internal Integration](https://www.google.com/search?q=%2371-internal-integration)
-      - [7.2. External Integration](https://www.google.com/search?q=%2372-external-integration)
-  - [8. Security & Compliance](https://www.google.com/search?q=%238-security--compliance)
-      - [8.1. Security Diagram](https://www.google.com/search?q=%2381-security-diagram)
-      - [8.2. Identity and Access Management (IAM)](https://www.google.com/search?q=%2382-identity-and-access-management-iam)
-      - [8.3. Data Protection](https://www.google.com/search?q=%2383-data-protection)
-      - [8.4. Network Security](https://www.google.com/search?q=%2384-network-security)
-      - [8.5. Compliance](https://www.google.com/search?q=%2385-compliance)
-  - [9. Deployment & Operations (DevOps)](https://www.google.com/search?q=%239-deployment--operations-devops)
-      - [9.1. CI/CD Pipeline](https://www.google.com/search?q=%2391-cicd-pipeline)
-      - [9.2. Monitoring & Logging](https://www.google.com/search?q=%2392-monitoring--logging)
-      - [9.3. Disaster Recovery (DR)](https://www.google.com/search?q=%2393-disaster-recovery-dr)
-  - [10. Scalability & Performance](https://www.google.com/search?q=%2310-scalability--performance)
-      - [10.1. Scalability](https://www.google.com/search?q=%23101-scalability)
-      - [10.2. Performance](https://www.google.com/search?q=%23102-performance)
-  - [11. Cost Estimation & Optimization](https://www.google.com/search?q=%2311-cost-estimation--optimization)
-      - [11.1. High-Level Cost Breakdown](https://www.google.com/search?q=%23111-high-level-cost-breakdown)
-      - [11.2. Cost Optimization Strategies](https://www.google.com/search?q=%23112-cost-optimization-strategies)
-  - [12. Considerations & Limitations](https://www.google.com/search?q=%2312-considerations--limitations)
-      - [12.1. Key Assumptions](https://www.google.com/search?q=%23121-key-assumptions)
-      - [12.2. Risks & Mitigations](https://www.google.com/search?q=%23122-risks--mitigations)
-      - [12.3. Known Limitations](https://www.google.com/search?q=%23123-known-limitations)
+1.  [Overview & Executive Summary](https://www.google.com/search?q=%231-overview--executive-summary)
+    1.  [Introduction & Business Problem](https://www.google.com/search?q=%2311-introduction--business-problem)
+    2.  [Proposed Solution](https://www.google.com/search?q=%2312-proposed-solution)
+    3.  [Key Benefits](https://www.google.com/search?q=%2313-key-benefits)
+2.  [Scope](https://www.google.com/search?q=%232-scope)
+    1.  [In Scope](https://www.google.com/search?q=%2321-in-scope)
+    2.  [Out of Scope](https://www.google.com/search?q=%2322-out-of-scope)
+3.  [Business Requirements & Architectural Drivers](https://www.google.com/search?q=%233-business-requirements--architectural-drivers)
+    1.  [Key Requirements Summary](https://www.google.com/search?q=%2331-key-requirements-summary)
+    2.  [Architectural Decisions](https://www.google.com/search?q=%2332-architectural-decisions)
+4.  [Cloud and Application Architecture](https://www.google.com/search?q=%234-cloud-and-application-architecture)
+    1.  [Recommended Cloud Provider](https://www.google.com/search?q=%2341-recommended-cloud-provider)
+    2.  [Solution Architecture Diagram](https://www.google.com/search?q=%2342-solution-architecture-diagram)
+    3.  [Compute Architecture](https://www.google.com/search?q=%2343-compute-architecture)
+    4.  [Application Architecture](https://www.google.com/search?q=%2344-application-architecture)
+5.  [Network Architecture](https://www.google.com/search?q=%235-network-architecture)
+    1.  [Network Topology Diagram](https://www.google.com/search?q=%2351-network-topology-diagram)
+    2.  [Network Topology Description](https://www.google.com/search?q=%2352-network-topology-description)
+    3.  [Traffic Flow](https://www.google.com/search?q=%2353-traffic-flow)
+    4.  [DNS & Connectivity](https://www.google.com/search?q=%2354-dns--connectivity)
+6.  [Data Storage & Management](https://www.google.com/search?q=%236-data-storage--management)
+    1.  [Data Storage Solutions](https://www.google.com/search?q=%2361-data-storage-solutions)
+    2.  [Data Flow & Lifecycle](https://www.google.com/search?q=%2362-data-flow--lifecycle)
+    3.  [Backup and Recovery](https://www.google.com/search?q=%2363-backup-and-recovery)
+7.  [Data and Application Integration](https://www.google.com/search?q=%237-data-and-application-integration)
+    1.  [Internal Integration](https://www.google.com/search?q=%2371-internal-integration)
+    2.  [External Integration](https://www.google.com/search?q=%2372-external-integration)
+8.  [Security & Compliance](https://www.google.com/search?q=%238-security--compliance)
+    1.  [Security Architecture Diagram](https://www.google.com/search?q=%2381-security-architecture-diagram)
+    2.  [Identity and Access Management (IAM)](https://www.google.com/search?q=%2382-identity-and-access-management-iam)
+    3.  [Data Protection](https://www.google.com/search?q=%2383-data-protection)
+    4.  [Network Security](https://www.google.com/search?q=%2384-network-security)
+    5.  [Compliance](https://www.google.com/search?q=%2385-compliance)
+9.  [Deployment & Operations (DevOps)](https://www.google.com/search?q=%239-deployment--operations-devops)
+    1.  [CI/CD Pipeline](https://www.google.com/search?q=%2391-cicd-pipeline)
+    2.  [Monitoring & Logging](https://www.google.com/search?q=%2392-monitoring--logging)
+    3.  [Disaster Recovery (DR)](https://www.google.com/search?q=%2393-disaster-recovery-dr)
+10. [Scalability & Performance](https://www.google.com/search?q=%2310-scalability--performance)
+    1.  [Scalability](https://www.google.com/search?q=%23101-scalability)
+    2.  [Performance](https://www.google.com/search?q=%23102-performance)
+11. [Cost Estimation & Optimization](https://www.google.com/search?q=%2311-cost-estimation--optimization)
+    1.  [High-Level Cost Breakdown](https://www.google.com/search?q=%23111-high-level-cost-breakdown)
+    2.  [Cost Optimization Strategies](https://www.google.com/search?q=%23112-cost-optimization-strategies)
+12. [Considerations & Limitations](https://www.google.com/search?q=%2312-considerations--limitations)
+    1.  [Key Assumptions](https://www.google.com/search?q=%23121-key-assumptions)
+    2.  [Risks & Mitigations](https://www.google.com/search?q=%23122-risks--mitigations)
+    3.  [Known Limitations](https://www.google.com/search?q=%23123-known-limitations)
 
 ## 1\. Overview & Executive Summary
 
 ### 1.1. Introduction & Business Problem
 
-The organization currently faces significant challenges in accessing and analyzing critical business data stored in MySystemApp, which is hosted within a private AWS network. This data isolation creates barriers to data-driven decision making, limits analytical capabilities, and prevents the organization from leveraging modern cloud analytics tools. The current state requires manual data extraction processes, lacks real-time insights, and cannot support the growing demands for self-service analytics and advanced data science capabilities.
+The organization currently faces significant challenges in accessing and analyzing critical business data stored in MySystemApp, which is hosted within a private AWS network. This data isolation creates barriers to data-driven decision-making, limits analytical capabilities, and prevents the organization from leveraging modern cloud analytics tools. The current state necessitates manual data extraction, lacks real-time insights, and cannot support growing demands for self-service analytics and advanced data science.
 
 ### 1.2. Proposed Solution
 
-The proposed solution implements a comprehensive cloud analytics platform that bridges AWS and Google Cloud Platform (GCP) environments through a modern data lakehouse architecture. The solution will establish secure data ingestion pipelines from the AWS-hosted MySystemApp into a GCP-based analytics environment featuring Data Vault 2.0 methodology for the raw vault layer and star schema-modeled information marts. The platform will support multiple consumption patterns including Power BI reporting, Vertex AI notebooks for data science, and RESTful APIs for downstream system integration.
+The proposed solution is a highly scalable, secure, and performant cross-cloud analytics platform. It bridges the existing AWS environment with Google Cloud Platform (GCP), establishing a modern data lakehouse architecture. The solution will securely ingest data in near real-time from the AWS-hosted MySystemApp into a GCP-based analytics environment. This environment will leverage Google Cloud Storage for raw data, BigQuery for the data lakehouse (implementing Data Vault 2.0 for the raw vault and star schemas for information marts), and a suite of GCP services for processing, orchestration, and consumption. This architecture will empower the organization with unified data access and advanced analytical capabilities.
 
 ### 1.3. Key Benefits
 
-  * **Unified Data Access:** Eliminate data silos by centralizing analytics in a cloud-native lakehouse architecture.
-  * **Real-time Insights:** Enable near real-time data availability with \<5 minute latency for streaming workloads.
-  * **Scalable Architecture:** Support concurrent access for 500+ users with auto-scaling capabilities.
-  * **Advanced Analytics:** Provide data scientists with flexible, GPU-accelerated computing environments.
-  * **Self-Service Capabilities:** Empower business users with intuitive reporting tools and pre-built templates.
-  * **Cost Optimization:** Achieve 30% reduction in data processing costs through cloud-native efficiencies.
-  * **Compliance & Governance:** Implement enterprise-grade security, audit trails, and data lineage tracking.
+This cloud solution architecture is designed to deliver tangible business value by addressing the core problems outlined in the BRD.
+
+  * **Unified Data Access & Real-time Insights**: By creating a central data lakehouse in GCP, the solution eliminates data silos. Data pipelines designed for \<5 minute latency will provide near real-time insights, enabling more agile and informed decision-making.
+  * **Scalability and Performance**: Leveraging GCP's managed and serverless services like Dataflow and BigQuery ensures the platform can auto-scale to handle 500+ concurrent users and peak processing loads up to 10TB/hour, while maintaining query response times of less than 5 seconds.
+  * **Advanced & Self-Service Analytics**: The platform provides a dedicated, GPU-accelerated Vertex AI environment for data scientists and integrates seamlessly with Power BI, empowering business users with self-service reporting capabilities.
+  * **Cost Efficiency**: By utilizing cloud-native services, automated data lifecycle management, and resource right-sizing, the architecture is designed to achieve a significant reduction in data processing costs.
+  * **Enhanced Security & Compliance**: The solution implements a defense-in-depth security model, featuring end-to-end encryption with customer-managed keys (CMEK), fine-grained IAM controls, VPC Service Controls, and robust audit logging, designed to meet GDPR, CCPA, and SOC 2 standards.
 
 ## 2\. Scope
 
 ### 2.1. In Scope
 
-  * Secure cross-cloud connectivity between AWS private network and GCP.
-  * Real-time and batch data ingestion pipelines from MySystemApp.
-  * Data Vault 2.0 implementation for historical data preservation and auditability.
-  * Star schema information marts for optimized analytical queries.
-  * ETL/ELT transformation pipelines with comprehensive data quality validation.
-  * Power BI integration with semantic models and self-service capabilities.
-  * Vertex AI notebook environment for data science and machine learning workloads.
-  * RESTful APIs and webhook integrations for downstream systems.
-  * Comprehensive monitoring, alerting, and operational dashboards.
-  * Data governance framework including cataloging, lineage, and access controls.
-  * Disaster recovery and business continuity capabilities.
+  * Secure, reliable, and high-bandwidth cross-cloud connectivity between the private AWS network and the GCP environment.
+  * Development of real-time streaming and batch data ingestion pipelines from the MySystemApp source system.
+  * Implementation of a Data Vault 2.0 model in BigQuery for the raw vault layer, ensuring full auditability and historical data preservation.
+  * Creation of star schema-based information marts in BigQuery, optimized for analytical queries.
+  * ETL/ELT transformation pipelines using Dataflow, including comprehensive data quality validation and error handling.
+  * Integration with Power BI, providing semantic models to support self-service reporting.
+  * Provisioning of a managed Vertex AI notebook environment with GPU support for data science and machine learning.
+  * Deployment of secure RESTful APIs via API Gateway for downstream system data consumption.
+  * A comprehensive monitoring and alerting solution using Cloud Monitoring for operational visibility.
+  * A robust data governance framework including a data catalog, data lineage tracking, and role-based access control (RBAC).
+  * A multi-region disaster recovery strategy to meet RTO/RPO requirements.
 
 ### 2.2. Out of Scope
 
-  * Migration or modification of the source MySystemApp system.
-  * End-user training and change management programs.
-  * Third-party tool licensing and procurement.
-  * Network infrastructure provisioning (VPN/Interconnect setup).
-  * Custom application development beyond the analytics platform.
-  * Data migration from legacy systems other than MySystemApp.
-  * Mobile application development for analytics consumption.
+  * Any migration or modification of the source MySystemApp system in AWS.
+  * Development of end-user training materials or change management programs.
+  * Procurement and licensing of third-party tools, including Power BI.
+  * Provisioning of the underlying network connectivity (VPN/Interconnect). This document assumes the connection is provisioned.
+  * Custom application development beyond the defined analytics platform components and APIs.
+  * Data migration from any legacy systems other than MySystemApp.
+  * Development of a mobile application for analytics consumption.
 
 ## 3\. Business Requirements & Architectural Drivers
 
 ### 3.1. Key Requirements Summary
 
-**Functional Requirements:**
-
-  * Support ingestion of 5TB initial data load and 500GB daily incremental updates.
-  * Handle peak processing loads of up to 10TB/hour with auto-scaling.
-  * Provide query response times \<5 seconds for 95% of analytical queries.
-  * Support 500+ concurrent users across multiple consumption tools.
-  * Maintain 99.9% data accuracy and completeness across all transformations.
-  * Enable real-time data streaming with \<5 minute end-to-end latency.
-
-**Non-Functional Requirements:**
-
-  * System availability \>99.9% excluding planned maintenance windows.
-  * End-to-end encryption for data in transit and at rest.
-  * Role-based access control with integration to enterprise identity systems.
-  * Compliance with GDPR, CCPA, and industry security standards (SOC 2, ISO 27001).
-  * Recovery Time Objective (RTO) \<4 hours and Recovery Point Objective (RPO) \<1 hour.
-  * Comprehensive audit logging and data lineage tracking capabilities.
+| Category | Requirement | Priority |
+| :--- | :--- | :--- |
+| **Functional** | | |
+| Data Volume | Support 5TB initial load and 500GB daily incremental updates. | High |
+| Processing Load | Handle peak processing loads of up to 10TB/hour with auto-scaling. | High |
+| Performance | Provide query response times \<5 seconds for 95% of analytical queries. | High |
+| Concurrency | Support 500+ concurrent users. | High |
+| Data Quality | Maintain 99.9% data accuracy and completeness. | High |
+| Latency | Enable real-time data streaming with \<5 minute end-to-end latency. | High |
+| **Non-Functional** | | |
+| Availability | System availability \>99.9%. | High |
+| Security | End-to-end encryption for data in transit and at rest; RBAC. | High |
+| Compliance | Adherence to GDPR, CCPA, SOC 2, ISO 27001. | High |
+| Disaster Recovery | RTO \<4 hours; RPO \<1 hour. | High |
+| Governance | Comprehensive audit logging and data lineage tracking. | High |
 
 ### 3.2. Architectural Decisions
 
-| Requirement | Decision |
-| :--- | :--- |
-| **Cross-Cloud Integration** | Implement secure VPN/Interconnect between AWS and GCP with dedicated data transfer agents and encrypted transmission protocols to ensure reliable, high-bandwidth connectivity while maintaining network isolation. |
-| **Historical Data Preservation** | Adopt Data Vault 2.0 methodology in the raw vault layer to maintain complete historical records, enable auditability, and support regulatory compliance through immutable data structures. |
-| **Multi-User Analytics** | Deploy cloud-native, auto-scaling infrastructure using GCP services (BigQuery, Dataflow, Cloud Storage) to dynamically handle varying user loads and processing demands. |
-| **Self-Service Analytics** | Implement Power BI integration with pre-built semantic models and standardized connectors to enable business users to create reports independently while maintaining data governance. |
-| **Advanced Analytics** | Provide a Vertex AI managed notebook environment with GPU acceleration and integrated ML services to support sophisticated data science workloads and model development. |
-| **Data Quality Assurance** | Implement comprehensive data validation pipelines with automated quality checks, anomaly detection, and alerting mechanisms to ensure data reliability and trustworthiness. |
+| Requirement | Architectural Decision | Justification (Alignment with Well-Architected Framework) |
+| :--- | :--- | :--- |
+| Securely bridge AWS and GCP environments. | Establish a secure, high-bandwidth Cloud VPN or Interconnect. Data will be ingested via agents that use TLS 1.3 encryption. | **Security**: Ensures data is encrypted in transit. **Performance**: Dedicated connectivity minimizes latency and provides predictable bandwidth. |
+| Maintain complete, auditable historical records. | Implement a Data Vault 2.0 architecture in BigQuery for the raw vault layer. | **Reliability**: Data Vault's insert-only nature prevents data loss and provides a full audit trail. **Performance**: Hub, Link, and Satellite structures are optimized for large-scale parallel loading. |
+| Support 500+ concurrent users and variable processing loads. | Utilize a serverless and auto-scaling architecture with GCP Dataflow and BigQuery. | **Cost Optimization**: Pay-per-use and auto-scaling prevent overprovisioning. **Performance**: Services scale automatically to meet peak demand without manual intervention. |
+| Enable business user self-service analytics. | Integrate Power BI using the native BigQuery connector and provide pre-built, governed semantic models (information marts). | **Operational Excellence**: Empowers users and reduces reliance on IT for standard reports. **Security**: Central models and row-level security ensure users only see the data they are authorized to access. |
+| Support advanced data science and ML workloads. | Provision a managed Vertex AI environment with on-demand GPU acceleration and integration with BigQuery ML. | **Performance Optimization**: Provides data scientists with powerful, scalable compute for complex modeling. **Cost Optimization**: GPU resources are provisioned on-demand, avoiding idle costs. |
+| Ensure data reliability and trustworthiness. | Implement a multi-stage data quality framework within Dataflow pipelines, including validation, cleansing, and anomaly detection with alerts. | **Reliability**: Guarantees that data is accurate and complete before it's made available for consumption, building trust in the platform. |
+| Achieve \>99.9% availability and RTO \< 4h, RPO \< 1h. | Deploy all critical services across multiple GCP Availability Zones. Use multi-regional GCS buckets and BigQuery datasets for critical data. Implement and regularly test a DR plan. | **Reliability**: A multi-AZ/multi-region architecture protects against localized failures and meets stringent RTO/RPO targets. |
 
 ## 4\. Cloud and Application Architecture
 
 ### 4.1. Recommended Cloud Provider
 
-The primary cloud provider for this solution is **Google Cloud Platform (GCP)**. The source data originates from an application hosted in a private AWS network, necessitating a secure cross-cloud connection. GCP is recommended due to its robust and scalable data analytics services, particularly BigQuery, Dataflow, and Vertex AI, which are central to meeting the project's functional and non-functional requirements.
+The primary cloud provider for the analytics platform will be **Google Cloud Platform (GCP)**. The source system will remain on **Amazon Web Services (AWS)**.
 
-### 4.2. Architecture Diagram
+**Justification**: This choice directly aligns with the BRD, which specifies building a GCP-based analytics environment to process data originating from an AWS-hosted application. GCP is selected for its strengths in data analytics, particularly with services like BigQuery, Dataflow, and Vertex AI, which provide a powerful, scalable, and integrated serverless platform ideal for meeting the project's performance and scalability requirements.
+
+### 4.2. Solution Architecture Diagram
 
 ```mermaid
 graph TD
-    subgraph "AWS Private Network"
-        A[fa:fa-database MySystemApp]
-    end
-
-    subgraph "Secure Cross-Cloud Connectivity"
-        B(fa:fa-lock VPN / Interconnect)
-    end
-
-    subgraph "GCP Analytics Platform"
-        subgraph "Ingestion Layer"
-            C[fa:fa-cloud-upload-alt Cloud Storage Staging Buckets]
-        end
-
-        subgraph "Processing & Storage Layer"
-            D[fa:fa-cogs Dataflow Pipelines Batch & Stream]
-            E[fa:fa-database BigQuery Raw Vault - Data Vault 2.0]
-            F[fa:fa-table BigQuery Information Marts - Star Schema]
-        end
-
-        subgraph "Consumption Layer"
-            G[fa:fa-chart-bar Power BI]
-            H[fa:fa-flask Vertex AI Notebooks]
-            I[fa:fa-code RESTful API & Webhooks]
-        end
-
-        subgraph "Orchestration & Governance"
-            J[fa:fa-calendar-alt Cloud Composer Airflow]
-            K[fa:fa-archive Data Catalog]
-            L[fa:fa-shield-alt Cloud IAM & Governance]
-        end
-
-        subgraph "Operations"
-            M[fa:fa-tachometer-alt Cloud Monitoring & Logging]
-            N[fa:fa-database Cloud SQL Metadata DB]
+    subgraph AWS Private Cloud
+        subgraph AWS VPC
+            MySystemApp[MySystemApp Database]
         end
     end
 
-    A -- "Secure Data Transfer" --> B
-    B --> C
-    C -- "Trigger" --> D
-    D -- "Load Raw Data" --> E
-    D -- "ETL/ELT" --> F
-    E -- "DirectQuery/Import" --> G
-    F -- "DirectQuery/Import" --> G
-    F -- "Data Source" --> H
-    F -- "Backend" --> I
-    J -- "Trigger Pipelines" --> D
-    D -- "Update Metadata" --> K
-    D -- "Update Metadata" --> N
-    L -- "Controls Access" --> G
-    L -- "Controls Access" --> H
-    L -- "Controls Access" --> I
-    E -- "Logs & Metrics" --> M
-    D -- "Logs & Metrics" --> M
+    subgraph Cross-Cloud Connectivity
+        direction LR
+        TransferAgent[Data Transfer Agent]
+        VPN[Cloud VPN / Interconnect]
+        MySystemApp -- Encrypted Data --> TransferAgent -- TLS 1.3 --> VPN
+    end
+
+    subgraph GCP Analytics Platform
+        subgraph GCP VPC
+            subgraph Ingestion [Ingestion & Staging]
+                direction LR
+                GCS_Staging[GCS Staging Bucket]
+                PubSub_Realtime[Pub/Sub for Real-time]
+                Cloud_Functions_Ingest[Cloud Functions]
+                VPN -- Data Streams --> PubSub_Realtime
+                VPN -- Batch Files --> GCS_Staging
+                PubSub_Realtime --> Cloud_Functions_Ingest
+            end
+
+            subgraph Processing [Processing & Warehousing]
+                direction LR
+                Dataflow[Dataflow ETL/ELT]
+                Composer[Cloud Composer]
+                BigQuery[BigQuery Data Lakehouse]
+                Cloud_Functions_Ingest --> Dataflow
+                GCS_Staging --> Dataflow
+                Dataflow --> BigQuery
+                Composer -- Orchestrates --> Dataflow
+            end
+
+            subgraph "BigQuery Layers"
+                direction TB
+                RawVault[Raw Vault - Data Vault 2.0]
+                InfoMarts[Information Marts - Star Schema]
+                BigQuery -- Contains --> RawVault
+                BigQuery -- Contains --> InfoMarts
+            end
+
+            subgraph Consumption [Consumption & Access]
+                direction LR
+                PowerBI[Power BI]
+                VertexAI[Vertex AI Notebooks]
+                APIGateway[API Gateway]
+                CloudSQL[Cloud SQL for Metadata]
+                BigQuery -- Native Connector --> PowerBI
+                BigQuery -- BigQuery Connector --> VertexAI
+                BigQuery -- SQL --> APIGateway
+                Dataflow -- Writes to --> CloudSQL
+            end
+
+             subgraph Governance & Security
+                 IAM[IAM & RBAC]
+                 KMS[Cloud KMS CMEK]
+                 VPCSC[VPC Service Controls]
+                 CloudLogging[Cloud Monitoring & Logging]
+             end
+        end
+    end
+
+    style AWS VPC fill:#FF9900,stroke:#333,stroke-width:2px
+    style GCP VPC fill:#4285F4,stroke:#333,stroke-width:2px
 ```
 
 ### 4.3. Compute Architecture
 
-The compute architecture is designed to be serverless and auto-scaling to meet the dynamic processing demands of the platform.
+The compute architecture is designed to be serverless and event-driven where possible to maximize scalability and cost-efficiency.
 
-  * **Dataflow:** As a fully managed and serverless data processing service, Dataflow is ideal for executing both batch and streaming ETL/ELT pipelines. Its ability to auto-scale resources based on data volume and processing complexity directly addresses the requirement to handle peak loads of up to 10TB/hour.
-  * **Vertex AI Managed Notebooks:** This service provides data scientists with a managed Jupyter notebook environment that integrates seamlessly with other GCP services. The inclusion of optional GPU acceleration is critical for meeting the advanced analytics requirement for sophisticated machine learning workloads.
-  * **Cloud Functions:** For lightweight, event-driven tasks such as triggering data pipelines upon file arrival in Cloud Storage or handling webhook notifications, Cloud Functions offers a cost-effective and scalable serverless solution.
+  * **Data Ingestion (Streaming)**: **Cloud Functions** will be used to process incoming real-time messages from Pub/Sub. This is a cost-effective choice for light, event-driven transformations before handing off to the main processing pipeline.
+  * **Data Processing (ETL/ELT)**: **Cloud Dataflow** is the primary service for all batch and streaming data transformation pipelines. Its serverless, auto-scaling nature is perfectly suited to handle the project's variable loads (up to 10TB/hour). It provides a unified model for both batch and streaming data, simplifying development and operations.
+  * **Data Science & ML**: **Vertex AI Managed Notebooks** will provide the environment for data scientists. This managed service simplifies the provisioning and management of JupyterLab environments. On-demand access to various CPU and GPU configurations ensures that data scientists have the power they need for model training without incurring costs for idle high-performance hardware.
+  * **API Hosting**: **Cloud Functions** or **Cloud Run** will be used to host the RESTful API endpoints, fronted by **API Gateway**. This serverless approach ensures that compute resources for the API are only consumed when requests are made, aligning with a cost-optimized, scalable model.
+  * **Workflow Orchestration**: **Cloud Composer (Managed Apache Airflow)** will be used to schedule, monitor, and manage the complex data pipeline workflows. It provides robust dependency management and visibility into pipeline execution, which is critical for operational excellence.
 
 ### 4.4. Application Architecture
 
-The solution will be built on an **event-driven microservices architecture** to ensure scalability, resilience, and maintainability.
+The platform follows a modern, multi-layered **Event-Driven Architecture**.
 
-  * **Event-Driven:** Cloud Pub/Sub will be used as the messaging backbone to decouple services. For example, the arrival of new data in Cloud Storage will publish a message to a Pub/Sub topic, which in turn triggers a Dataflow pipeline. This asynchronous pattern enhances scalability and fault tolerance.
-  * **Microservices:** The platform's functionalities will be broken down into smaller, independent services. For instance, a dedicated microservice will manage the RESTful API endpoints, another will handle data quality validation, and others will manage specific data transformations. This approach allows for independent development, deployment, and scaling of each component. This modularity is managed and orchestrated by Cloud Composer.
+  * **Ingestion Layer**: This layer is responsible for capturing data. For batch, files are landed in Cloud Storage. For streaming, messages are pushed to Pub/Sub topics. This decouples the source system from the processing system, enhancing reliability.
+  * **Processing Layer**: Orchestrated by Cloud Composer, Dataflow jobs are triggered by new data arriving in GCS (batch) or Pub/Sub (streaming). These jobs perform the necessary transformations, data quality checks, and load the data into the appropriate BigQuery layers (Data Vault, then Information Marts).
+  * **Storage Layer**: This is the data lakehouse itself, residing in BigQuery and GCS. It's structured to support different analytical needs: the Data Vault for historical fidelity and audit, and the star schema marts for high-performance business intelligence.
+  * **Consumption Layer**: This layer provides various interfaces for different user personas. Power BI connects directly to the information marts in BigQuery. Vertex AI notebooks access both the raw vault and marts for deep analysis. The API Gateway provides programmatic access for other applications. This multi-modal access ensures the platform serves all defined business needs.
+
+This architecture ensures a clean separation of concerns, enhances scalability by allowing each layer to scale independently, and improves reliability by decoupling components with asynchronous messaging patterns.
 
 ## 5\. Network Architecture
 
-### 5.1. Network Topology
-
-  * **GCP Virtual Private Cloud (VPC):** A dedicated VPC will be created in GCP to host all platform resources, ensuring network isolation from other projects and the public internet.
-  * **CIDR Blocks:** A non-overlapping CIDR block (e.g., `10.10.0.0/16`) will be allocated to the GCP VPC to prevent IP address conflicts with the AWS network.
-  * **Subnet Segmentation:** The VPC will be segmented into multiple private subnets across at least two availability zones for high availability. Each layer of the architecture (ingestion, processing, API) will reside in its own subnet to enforce the principle of least privilege through firewall rules. No public subnets will be used for the core infrastructure, minimizing the attack surface.
-
-### 5.2. Network Architecture Diagram
+### 5.1. Network Topology Diagram
 
 ```mermaid
 graph TD
-    subgraph "On-Premises / Users"
-        User[fa:fa-user Business User]
-        DS[fa:fa-laptop Data Scientist]
-        ExtApp[fa:fa-server Downstream Application]
+    subgraph AWS VPC
+        AppVPC[MySystemApp Subnet]
     end
 
-    subgraph "Internet"
-        CDN[fa:fa-globe Cloud CDN]
-        WAF[fa:fa-shield-alt Cloud Armor WAF]
+    subgraph Internet
+        CloudVPN[Cloud VPN / Interconnect]
+        AppVPC -- Private Link --> CloudVPN
     end
 
-    subgraph "GCP VPC"
-        subgraph "API & Access Layer"
-            LB[fa:fa-server-alt External HTTPS Load Balancer]
-            APIG[fa:fa-random API Gateway]
+    subgraph GCP
+        subgraph GCP_VPC [Project VPC]
+            direction TB
+            subgraph Perimeter [VPC Service Control Perimeter]
+                direction LR
+                subgraph PublicSubnet [Public Subnet]
+                    APIGateway[API Gateway]
+                    WAF[Cloud Armor WAF]
+                    APIGateway -- Protected by --> WAF
+                end
+                subgraph PrivateSubnet1 [Private Subnet 1 - Processing]
+                    Dataflow[Dataflow Workers]
+                    Composer[Cloud Composer Env]
+                end
+                subgraph PrivateSubnet2 [Private Subnet 2 - Analytics]
+                    VertexAI[Vertex AI Notebooks]
+                    CloudSQL[Cloud SQL Instance]
+                end
+                subgraph GoogleManagedServices [Google-Managed Services]
+                     BigQuery[BigQuery]
+                     GCS[Cloud Storage]
+                     PubSub[Pub/Sub]
+                end
+                PrivateSubnet1 -- Private Google Access --> GoogleManagedServices
+                PrivateSubnet2 -- Private Google Access --> GoogleManagedServices
+                PublicSubnet -- Secure Connection --> PrivateSubnet1
+            end
         end
-
-        subgraph "Application & Processing Subnets (Private)"
-            PBI[Power BI Gateway]
-            VAI[Vertex AI Notebooks]
-            API_SVC[API Microservice]
-            DF[Dataflow]
-        end
-
-        subgraph "Data Subnet (Private)"
-            BQ[fa:fa-database BigQuery]
-            CS[fa:fa-hdd Cloud Storage]
-            SQL[fa:fa-database Cloud SQL]
-        end
+        CloudVPN -- Secure Tunnel --> GCP_VPC
     end
 
-    subgraph "AWS VPC"
-        CCA(fa:fa-lock Cross-Cloud Interconnect/VPN)
-        App[fa:fa-database MySystemApp]
-    end
-
-    User -- "HTTPS" --> CDN
-    DS -- "HTTPS" --> CDN
-    ExtApp -- "HTTPS/API" --> CDN
-    CDN --> WAF
-    WAF --> LB
-    LB --> APIG
-    APIG --> API_SVC
-
-    APIG -- "via Private Google Access" --> BQ
-    PBI -- "via Private Google Access" --> BQ
-    VAI -- "via Private Google Access" --> BQ
-    VAI -- "via Private Google Access" --> CS
-    API_SVC -- "via Private Google Access" --> BQ
-    DF -- "via Private Google Access" --> BQ
-    DF -- "via Private Google Access" --> CS
-    DF -- "via Private Google Access" --> SQL
-
-    App --> CCA
-    CCA --> CS
+    style GCP_VPC fill:#4285F4,stroke:#333,stroke-width:2px
+    style Perimeter fill:#E3F2FD,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5
+    style AWS fill:#FF9900,stroke:#333,stroke-width:2px
 ```
+
+### 5.2. Network Topology Description
+
+The network is designed based on a defense-in-depth and least-privilege model.
+
+  * **VPC**: A single GCP Virtual Private Cloud (VPC) will be created to host all platform resources. This VPC will be segmented into multiple subnets.
+  * **CIDR Blocks**: The VPC will be allocated a `/16` CIDR block to ensure ample IP address space for future expansion. Subnets will be carved out of this block (e.g., `/24`) for different functional layers.
+  * **Subnet Segmentation**:
+      * **Public Subnet**: A restricted public subnet will host the API Gateway and the Cloud Armor WAF. This subnet will be the only part of the architecture with a route to the internet.
+      * **Private Subnets**: Multiple private subnets will be used to isolate resources. For example, a dedicated subnet for Dataflow workers and Cloud Composer, and another for Vertex AI and Cloud SQL. Firewall rules will be strictly configured to only allow necessary traffic between these subnets.
+  * **Private Google Access**: All private subnets will be configured with Private Google Access. This allows resources without public IP addresses (like Dataflow workers) to securely access the public endpoints of Google services like BigQuery, GCS, and Pub/Sub over Google's internal network, enhancing security.
+  * **VPC Service Controls**: A VPC Service Control perimeter will be established around the project's resources, including the GCS buckets and BigQuery datasets. This creates a virtual security boundary that helps prevent data exfiltration by blocking access to services from outside the perimeter, even with valid credentials.
 
 ### 5.3. Traffic Flow
 
-  * **Ingress (External Users):** User traffic from Power BI, Vertex AI Notebooks, and downstream applications will be routed through Cloud Armor (WAF) for protection against web attacks and DDoS. The External HTTPS Load Balancer will then distribute traffic to the appropriate backend services, such as the API Gateway.
-  * **Ingress (AWS Data):** Data from the MySystemApp in AWS will be securely transmitted over a dedicated VPN or Cross-Cloud Interconnect, landing directly into a private Cloud Storage staging bucket. This traffic will not traverse the public internet.
-  * **Internal Traffic:** All communication between services within the GCP VPC will use private IP addresses. Private Google Access will be enabled for subnets, allowing internal resources to reach Google APIs (like BigQuery and Cloud Storage) without needing external IP addresses, thus enhancing security.
-  * **Egress:** Egress traffic will be controlled through a NAT Gateway and Cloud Router to manage and monitor outbound connections from the private subnets.
+  * **Ingress (Data)**: Data from the AWS source will flow through the secure Cloud VPN/Interconnect tunnel directly into the GCP VPC. Batch files will be sent to a GCS landing zone, and real-time streams will be published to a Pub/Sub topic. This traffic does not traverse the public internet.
+  * **Ingress (Users)**: API traffic from external systems will be routed through the Cloud Armor WAF to the API Gateway in the public subnet. Power BI and data scientist access to GCP services will be authenticated via IAM and will not require direct ingress into the VPC.
+  * **Internal**: All communication between GCP resources (e.g., Dataflow to BigQuery, Vertex AI to GCS) will occur within the GCP VPC, using Private Google Access. This keeps service-to-service traffic off the public internet.
+  * **Egress**: Egress traffic will be highly restricted. The only planned egress is for sending event notifications to downstream systems via webhooks, which will be initiated from Cloud Functions through a NAT Gateway to provide a static source IP.
 
 ### 5.4. DNS & Connectivity
 
-  * **DNS:** Cloud DNS will be used to manage all private and public DNS zones for the solution, providing a reliable and low-latency DNS service.
-  * **Cross-Cloud Connectivity:** A high-bandwidth, low-latency connection will be established between the AWS and GCP VPCs using either a dedicated Cross-Cloud Interconnect or a redundant set of Cloud VPN tunnels. This is critical for meeting the \<5 minute latency requirement for real-time data ingestion.
+  * **DNS**: Google Cloud DNS will be used for any internal service discovery needs. Public-facing APIs will have their DNS records managed externally, pointing to the API Gateway endpoint.
+  * **Connectivity**: A high-availability Cloud VPN or a dedicated Cloud Interconnect will be the primary method for linking the on-premises AWS VPC to the GCP VPC. This is a critical component and should be configured with redundancy to avoid a single point of failure, aligning with the project's high-availability requirements.
 
 ## 6\. Data Storage & Management
 
 ### 6.1. Data Storage Solutions
 
-  * **Raw Data & Staging:** Google Cloud Storage (GCS) will serve as the landing zone for raw data from MySystemApp. GCS is chosen for its high durability, scalability, and cost-effectiveness. Lifecycle management policies will automatically transition data from Standard to Nearline and then to Coldline storage tiers to optimize costs based on access frequency.
-  * **Raw Vault (Data Vault 2.0):** Google BigQuery will be used to implement the Data Vault 2.0 model. Its serverless, highly scalable nature is perfect for handling large datasets and complex queries. Hub, Link, and Satellite tables will be created within BigQuery datasets. Tables will be partitioned by load date and clustered on business keys to optimize query performance and cost.
-  * **Information Marts (Star Schema):** BigQuery will also host the star schema information marts. These marts will be organized into separate datasets for each business domain (e.g., Sales, Financials) for clarity and access control. Materialized views and BI Engine will be used extensively to accelerate query performance for Power BI dashboards, meeting the \<5 second query response requirement.
-  * **Metadata:** A Cloud SQL for PostgreSQL instance will be used to store all platform metadata. This includes data lineage information, operational metrics, pipeline configurations, and data quality results. A relational database is chosen for its transactional integrity and ability to handle structured metadata effectively.
+The data storage strategy employs a multi-tiered approach to optimize for cost, performance, and analytical needs.
+
+  * **Raw Data / Landing Zone**: **Google Cloud Storage (GCS)** will be used for the initial landing and staging of raw data from the source system.
+      * **Justification**: GCS provides virtually unlimited, durable, and cost-effective object storage. Its different storage classes (Standard, Nearline, Coldline) are ideal for implementing data lifecycle management. Multi-regional buckets will be used for critical data to ensure redundancy.
+  * **Raw Vault (Data Vault 2.0)**: **Google BigQuery** will house the Data Vault 2.0 model.
+      * **Justification**: BigQuery's serverless, scalable architecture is perfectly suited for the large-scale, insert-heavy workloads typical of a Data Vault. Its support for partitioning (on load date) and clustering (on business keys) will ensure efficient data loading and querying, even with petabytes of data. The immutable nature of Data Vault aligns well with BigQuery's append-optimized storage.
+  * **Information Marts (Star Schema)**: **Google BigQuery** will also host the star schema information marts.
+      * **Justification**: BigQuery is a columnar data warehouse optimized for analytical queries. Storing the marts here allows for extremely fast aggregations and joins, directly meeting the \<5 second query performance requirement. The separation of marts into different datasets provides logical organization by business domain.
+  * **Metadata**: **Cloud SQL for PostgreSQL** will be used to store system metadata.
+      * **Justification**: A relational database is ideal for storing structured metadata such as data lineage information, operational metrics, pipeline configurations, and audit logs. Cloud SQL provides a fully managed, reliable, and backed-up PostgreSQL service, reducing operational overhead.
 
 ### 6.2. Data Flow & Lifecycle
 
-1.  **Ingestion:** Secure agents in the AWS environment will extract data in near real-time and batch modes from MySystemApp. Data is transmitted via the secure cross-cloud link and lands in a GCS staging bucket. A Cloud Function is triggered upon new file arrival.
-2.  **Processing:** The Cloud Function trigger initiates a Dataflow pipeline. The pipeline validates the raw data, loads it into the BigQuery Raw Vault (Data Vault 2.0 tables), applies business logic and transformations, and populates the star schema-based Information Marts. Data quality checks are performed at each step.
-3.  **Consumption:** Business users access the Information Marts via Power BI for self-service reporting. Data scientists query both the Raw Vault and Information Marts using Vertex AI notebooks for exploratory analysis and model training. Downstream applications integrate via a RESTful API built on Cloud Run, which queries the Information Marts.
-4.  **Archival & Purge:** GCS Lifecycle policies automatically move raw data to archival storage tiers. A data retention policy, managed in Cloud Composer, will periodically run jobs to archive historical data from BigQuery to GCS Coldline and eventually purge data according to regulatory requirements (e.g., GDPR, CCPA).
+The data lifecycle is managed through an automated, multi-stage pipeline.
+
+1.  **Ingestion**: Raw data is extracted from MySystemApp and lands in a GCS Staging bucket. An event notification (e.g., Pub/Sub message) is triggered.
+2.  **Processing (Data Vault)**: A Dataflow pipeline, orchestrated by Cloud Composer, is triggered by the ingestion event. It reads the raw data, applies basic cleansing and standardization, calculates hash keys, and loads the data into the appropriate Hub, Link, and Satellite tables in the BigQuery Raw Vault.
+3.  **Processing (Information Marts)**: Once the Data Vault load is complete, another orchestrated Dataflow job reads from the Raw Vault tables, applies complex business rules and aggregations, and populates the fact and dimension tables in the star schema Information Marts.
+4.  **Consumption**: Business users and data scientists access the optimized Information Marts for their analyses. Data scientists may also access the Raw Vault for deeper, historical analysis.
+5.  **Archival & Purge**: GCS Lifecycle Management policies automatically transition raw data in the staging bucket from Standard to Nearline, then to Coldline storage, and finally delete it based on defined retention policies (e.g., delete after 90 days). Data in BigQuery will be subject to dataset-level retention policies to comply with GDPR and CCPA requirements.
 
 ### 6.3. Backup and Recovery
 
-  * **BigQuery:** BigQuery's inherent durability and 7-day time travel feature provide robust protection against operational errors. For disaster recovery, automated daily snapshots of critical BigQuery datasets will be taken and replicated to a secondary GCP region. This strategy supports the \<1 hour RPO requirement.
-  * **Cloud Storage:** GCS buckets will be configured for multi-regional storage for critical raw data and cross-region replication for backups, ensuring high availability and disaster recovery.
-  * **Cloud SQL:** Automated daily backups and point-in-time recovery will be enabled for the metadata database. Backups will be replicated to the DR region to meet the RTO/RPO targets.
+The backup and recovery strategy is designed to meet the RTO of \<4 hours and RPO of \<1 hour.
+
+  * **Primary Backup**: BigQuery's built-in snapshot functionality will be used to take automated daily snapshots of all critical datasets. These snapshots will have a default retention of 30 days and will be replicated to a secondary GCP region for geographic redundancy.
+  * **Operational Recovery**: For quick recovery from operational errors (e.g., a bad data load), BigQuery's **Time Travel** feature will be utilized. This allows any table to be restored to any point-in-time within the last 7 days without needing to perform a full restore from a snapshot.
+  * **Disaster Recovery**: A complete, automated replication of the environment's infrastructure (as code) and data (via snapshots and replication) will be maintained in a secondary GCP region. This plan will be tested regularly (e.g., quarterly) to ensure it can meet the defined RTO and RPO in case of a regional disaster.
 
 ## 7\. Data and Application Integration
 
 ### 7.1. Internal Integration
 
-  * **Service Communication:** A combination of REST APIs and event-driven messaging will be used.
-      * **REST APIs:** Synchronous communication between microservices (e.g., the API service requesting data from a data processing service) will be handled via REST APIs deployed on Cloud Run, secured with IAM.
-      * **Asynchronous Messaging:** Cloud Pub/Sub will be the core of the event-driven architecture, decoupling services. For example, the ingestion service will publish a "new data arrived" message, which is subscribed to by the Dataflow processing service. This ensures resilience and scalability.
-  * **Workflow Orchestration:** Cloud Composer (managed Apache Airflow) will be used to orchestrate the end-to-end data pipelines. It will manage dependencies between different tasks, such as ingestion, Data Vault loading, and Information Mart population, and handle retries and error alerting.
+Internal services will communicate using a combination of synchronous and asynchronous patterns to ensure loose coupling and reliability.
+
+  * **Service Communication**:
+      * **REST APIs**: For synchronous, request-response interactions between microservices (e.g., an orchestration service querying a metadata service), internal REST APIs will be used, hosted on Cloud Run or Cloud Functions.
+      * **Asynchronous Messaging**: For decoupling processes and handling events, **Cloud Pub/Sub** will be the primary mechanism. For example, the ingestion process will publish a message to a Pub/Sub topic upon file arrival, which in turn triggers the Dataflow processing pipeline. This event-driven approach enhances scalability and resilience.
+  * **Data Pipeline Integration**: **Cloud Composer (Managed Apache Airflow)** is the core orchestrator for the entire data platform. It will define complex workflows as Directed Acyclic Graphs (DAGs), managing dependencies, retries, and error handling for all ingestion, transformation, and loading processes. It will integrate directly with Dataflow, BigQuery, and Cloud Storage.
+  * **Monitoring Integration**: All services, including Cloud Functions, Dataflow, BigQuery, and Composer, will be configured to send logs and metrics to **Cloud Monitoring and Cloud Logging**. This provides a single pane of glass for operational visibility, enabling the creation of centralized dashboards and proactive alerting rules.
 
 ### 7.2. External Integration
 
-  * **Source System (MySystemApp on AWS):** A secure data transfer agent will be deployed in the AWS environment. This agent will use the MySystemApp's APIs or a direct database connection to extract data. Authentication will be managed through dedicated service accounts and securely stored API keys/credentials in AWS Secrets Manager, accessed only by the agent.
-  * **Power BI:** Users will connect to BigQuery using the native Power BI connector. This supports both DirectQuery for real-time data and Import mode for performance. Data access will be secured through service principal authentication and enforced with BigQuery's row-level security to ensure users only see the data they are authorized for.
-  * **Downstream Systems (API):** A set of RESTful API endpoints will be exposed using API Gateway and Cloud Run. These APIs will be documented using the OpenAPI specification. API Gateway will enforce rate limiting, API key authentication, and monitoring to protect the backend services. Webhooks will be supported via Pub/Sub push subscriptions to notify external systems of key business events.
-  * **Enterprise Identity:** GCP IAM will be federated with the organization's enterprise Active Directory using SAML/OAuth 2.0. This provides a seamless and secure single sign-on (SSO) experience for all users accessing GCP resources, Power BI reports, and Vertex AI notebooks.
+The platform is designed to integrate securely and efficiently with several external systems.
+
+  * **Source System (MySystemApp)**: Secure connectivity will be established from GCP to the private AWS network. Data extraction will be performed via secure data transfer agents that communicate with MySystemApp's database or its APIs. Authentication will be managed using dedicated service accounts with IAM and stored, rotated credentials in GCP Secret Manager. The integration will support both push (MySystemApp triggering data sends) and pull (GCP orchestrator requesting data) patterns to provide flexibility.
+  * **Power BI**: The native **BigQuery connector for Power BI** will be used. This connector supports both `DirectQuery` mode (for near real-time dashboards) and `Import` mode (for high-performance in-memory analytics). Authentication will be managed through service principals, and data security will be enforced using BigQuery's row-level security, ensuring Power BI users only see data they are permitted to access.
+  * **Downstream System APIs**: To serve data to other applications, a set of **RESTful API endpoints** will be exposed via **API Gateway**. These APIs will be well-documented, secure, and monitored. API Gateway will handle authentication (via API keys or OAuth), rate limiting to protect backend services, and request/response validation. For event-driven integrations, the API layer will also support publishing messages to Pub/Sub topics, which can then be subscribed to by external systems via authenticated push webhooks.
+  * **Identity System**: To provide a seamless and secure user experience, the platform will integrate with the enterprise Active Directory (AD) using **SAML 2.0 or OAuth 2.0**. This will enable single sign-on (SSO) for data scientists accessing Vertex AI, business users accessing Power BI, and administrators accessing the GCP console.
 
 ## 8\. Security & Compliance
 
-### 8.1. Security Diagram
+### 8.1. Security Architecture Diagram
 
 ```mermaid
 graph TD
-    subgraph "External Users/Systems"
-        U1[Power BI User]
-        U2[Data Scientist]
-        U3[Downstream App]
-    end
-
-    subgraph "Enterprise Identity"
-        IDP[Active Directory / IDP]
-    end
-
-    subgraph "GCP Security Perimeter"
-        subgraph "Perimeter Controls"
-            WAF[Cloud Armor - WAF/DDoS Protection]
-            VPC_SC[VPC Service Controls]
+    %% Main Groups
+    subgraph " "
+        direction LR
+        subgraph Users & External Systems
+            direction TB
+            BI_User[Power BI User]
+            DS_User[Data Scientist]
+            App[Downstream Application]
         end
 
-        subgraph "IAM & Key Management"
-            IAM[Cloud IAM - RBAC]
-            KMS[Cloud KMS - CMEK]
-        end
-
-        subgraph "Protected Services"
-            BQ[BigQuery]
-            CS[Cloud Storage]
-            DF[Dataflow]
-            VAI[Vertex AI]
-        end
-
-        subgraph "Network Security"
-            FW[VPC Firewall Rules]
-            PGA[Private Google Access]
+        subgraph GCP Platform
+            direction TB
+            APIGateway[API Gateway]
+            BigQuery[BigQuery]
+            VertexAI[Vertex AI]
+            PowerBI_Connector[Power BI Connector]
         end
     end
 
-    U1 -- "SAML/OAuth" --> IDP
-    U2 -- "SAML/OAuth" --> IDP
-    U3 -- "API Key" --> WAF
+    subgraph GCP Security Controls
+        direction TB
+        subgraph Perimeter [VPC Service Control Perimeter]
+            subgraph NetworkSecurity [Network Layer]
+                direction TB
+                WAF[Cloud Armor WAF]
+                Firewall[VPC Firewall Rules]
+                PrivateAccess[Private Google Access]
+            end
+            subgraph IdentityAccess [Identity & Access Layer]
+                direction TB
+                IAM[IAM with RBAC]
+                AD_SSO[Enterprise AD SSO]
+                MFA[MFA for Admins]
+            end
+            subgraph DataProtection [Data Protection Layer]
+                direction TB
+                KMS[Cloud KMS with CMEK]
+                EncryptionRest[Encryption at Rest]
+                EncryptionTransit[Encryption in Transit TLS 1.3]
+                DataClassification[Data Classification & Labeling]
+            end
+            subgraph Auditing [Audit & Monitoring Layer]
+                direction TB
+                AuditLogs[Cloud Audit Logs]
+                Monitoring[Cloud Monitoring]
+            end
+        end
+    end
 
-    IDP -- "Federated Identity" --> IAM
-    IAM -- "Grants Permissions" --> BQ
-    IAM -- "Grants Permissions" --> CS
-    IAM -- "Grants Permissions" --> VAI
 
-    WAF --> BQ
-    VPC_SC -- "Creates Service Perimeter" --> BQ
-    VPC_SC -- "Creates Service Perimeter" --> CS
-    VPC_SC -- "Creates Service Perimeter" --> DF
-    KMS -- "Encrypts Data at Rest" --> BQ
-    KMS -- "Encrypts Data at Rest" --> CS
-    KMS -- "Encrypts Data at Rest" --> SQL[Cloud SQL]
+    %% Connections
+    BI_User -- "SAML/SSO" --> AD_SSO
+    DS_User -- "SAML/SSO" --> AD_SSO
+    App -- "API Key" --> WAF
 
-    FW -- "Segment & Restrict Traffic" --> BQ
-    FW -- "Segment & Restrict Traffic" --> CS
-    FW -- "Segment & Restrict Traffic" --> DF
-    PGA -- "Enables Private API Access" --> BQ
+    WAF --> APIGateway
+    IAM ==> BigQuery
+    IAM ==> VertexAI
+    IAM ==> PowerBI_Connector
+    
+    KMS -- "Protects Data In" --> BigQuery
+    EncryptionRest -- "Protects Data In" --> BigQuery
+    EncryptionTransit -- "Protects Data In" --> BigQuery
+
+    AuditLogs -- "Monitors" --> BigQuery
+    AuditLogs -- "Monitors" --> VertexAI
+    Monitoring -- "Monitors" --> BigQuery
+    Monitoring -- "Monitors" --> VertexAI
+
+
+    %% Styling
+    style GCP Security Controls fill:#f0f4ff,stroke:#4285F4,stroke-width:1px
+    style Perimeter fill:#e3f2fd,stroke:#4285F4,stroke-width:2px,stroke-dasharray: 5 5
 ```
 
 ### 8.2. Identity and Access Management (IAM)
 
-  * **Authentication:** User authentication will be federated with the enterprise identity provider (e.g., Active Directory) using SAML 2.0/OAuth 2.0. This enables single sign-on (SSO) for all users. Multi-factor authentication (MFA) will be enforced for all administrative and privileged access.
-  * **Authorization:** A stringent Role-Based Access Control (RBAC) model will be implemented using GCP IAM. Custom IAM roles will be created to adhere to the principle of least privilege, granting users and services only the permissions necessary for their functions.
-  * **Service Accounts:** Each microservice and pipeline component will have its own dedicated IAM service account. These accounts will be granted minimal permissions. Service account keys will be managed and rotated automatically using GCP's built-in capabilities to minimize the risk of compromised credentials.
+  * **Authentication**: User authentication will be federated with the enterprise's Active Directory via SAML 2.0, enabling a secure Single Sign-On (SSO) experience for all users (analysts, data scientists, administrators). Multi-Factor Authentication (MFA) will be strictly enforced for any administrative access to the GCP environment.
+  * **Authorization**: A granular Role-Based Access Control (RBAC) model will be implemented using GCP IAM. Custom roles will be created to adhere to the principle of least privilege. For example, a `DataAnalyst` role might have `bigquery.dataViewer` access only to specific information mart datasets, while a `DataEngineer` role will have permissions to run Dataflow jobs and write to the raw vault.
+  * **Service Account Management**: Each application and service component will use its own dedicated IAM service account with the minimal set of permissions required for its function. Service account keys will be managed and automatically rotated by GCP, and their usage will be regularly audited to detect and disable any unused or overly permissive accounts.
 
 ### 8.3. Data Protection
 
-  * **Encryption at Rest:** All data stored in Cloud Storage, BigQuery, and Cloud SQL will be encrypted at rest by default. For enhanced security and control, Customer-Managed Encryption Keys (CMEK) managed in Google Cloud KMS will be used. Separate cryptographic key rings will be maintained for different data sensitivity levels, providing granular control over data access.
-  * **Encryption in Transit:** All data transmitted between the user and the platform, and between internal services, will be encrypted using TLS 1.3. The VPN/Interconnect connection between AWS and GCP will be encrypted, and additional application-layer encryption will be applied to the data payload before transmission.
-  * **Data Classification and Masking:** Cloud Data Loss Prevention (DLP) will be used to automatically scan and classify sensitive data within Cloud Storage and BigQuery. Based on this classification, automated policies will be applied, such as masking or tokenizing PII in non-production environments or restricting access to tables containing sensitive information.
+  * **Encryption at Rest**: All data stored in Google Cloud Storage and BigQuery will be encrypted at rest by default. To meet compliance requirements, this will be augmented with **Customer-Managed Encryption Keys (CMEK)** using **Google Cloud KMS**. Separate key rings will be created for different data sensitivity levels (e.g., PII, Financial), providing an additional layer of access control and an independently verifiable audit trail for key usage.
+  * **Encryption in Transit**: All data transmitted between platform components, from the AWS source, and to end-user tools like Power BI will be encrypted using **TLS 1.3**. The cross-cloud VPN/Interconnect tunnel provides an encrypted channel, and application-layer encryption will be enforced on top of this.
+  * **Data Classification and Masking**: Automated data classification tools within GCP will be used to scan for and label sensitive data (e.g., PII) upon ingestion. BigQuery's column-level security and dynamic data masking capabilities will be used to redact or mask sensitive columns in real-time based on the user's role, preventing unauthorized exposure of sensitive information in reports and queries.
 
 ### 8.4. Network Security
 
-  * **VPC Service Controls:** A service perimeter will be established using VPC Service Controls around the core data services (BigQuery, Cloud Storage). This creates a virtual security boundary, preventing data exfiltration by restricting data movement to only authorized networks and services, even if credentials are compromised.
-  * **Firewall Rules:** Granular VPC firewall rules will be configured to control traffic between subnets. The default-deny rule will be enforced, and only traffic on specifically required ports and protocols (e.g., HTTPS) will be allowed between application tiers.
-  * **Web Application Firewall (WAF):** Cloud Armor will be deployed at the network edge in front of all API endpoints. It will provide protection against common web vulnerabilities (OWASP Top 10) and volumetric DDoS attacks.
-  * **Private Google Access:** Compute resources in private subnets will use Private Google Access to communicate with Google APIs and services (like BigQuery and GCS) over Google's internal network, avoiding any exposure to the public internet.
+  * **Network Segmentation**: The platform will reside in a dedicated VPC, segmented into private subnets for different layers (e.g., processing, analytics). VPC firewall rules will be configured to deny all traffic by default, only allowing specific protocols and ports required for service-to-service communication.
+  * **Perimeter Security**: A **VPC Service Control** perimeter will be enforced around the project's critical services (BigQuery, GCS, Cloud KMS). This acts as a service-level firewall, preventing data exfiltration by blocking access from unauthorized networks and restricting data movement outside the defined perimeter. For the public-facing API, **Cloud Armor (WAF)** will provide protection against DDoS attacks, SQL injection, and other common web exploits.
+  * **Internal Security**: Communication between resources in private subnets and Google-managed services will use **Private Google Access**, keeping all traffic on Google's internal network and avoiding exposure to the public internet. Network monitoring and intrusion detection will be enabled to identify anomalous traffic patterns.
 
 ### 8.5. Compliance
 
-  * **Audit Logging:** Comprehensive audit logs will be enabled for all services. Cloud Audit Logs will capture all admin activities and data access events for BigQuery and Cloud Storage. These logs will be stored securely in a dedicated GCS bucket with immutable retention policies to support compliance audits and forensic analysis.
-  * **Data Governance and Lineage:** Data Catalog will be used to automatically catalog all data assets in BigQuery and Cloud Storage. Data lineage tracking will be implemented using Dataflow and Cloud Composer logs, providing a clear audit trail of how data is transformed and moved through the platform, a key requirement for GDPR and CCPA.
-  * **Compliance Standards:** The architecture is designed to meet GDPR, CCPA, and SOC 2 requirements. This includes implementing data subject access request (DSAR) procedures, enforcing data retention policies, and ensuring all security controls are documented and auditable.
+The architecture is designed to support adherence to the following standards:
+
+  * **GDPR/CCPA**: Data retention policies in GCS and BigQuery will be configured for automated data purging. The Data Vault architecture provides a clear audit trail for data lineage, and processes will be established to handle data subject access and deletion requests.
+  * **SOC 2 Type II / ISO 27001**: The combination of IAM controls, encryption, network security, audit logging, and operational monitoring provides the technical foundation required for these attestations. All controls will be documented, and evidence will be collected from Cloud Audit Logs and other sources to support regular third-party audits.
 
 ## 9\. Deployment & Operations (DevOps)
 
 ### 9.1. CI/CD Pipeline
 
-  * **Source Control:** A Git-based repository (e.g., GitHub, Cloud Source Repositories) will be the single source of truth for all application code, infrastructure as code (Terraform), and data pipeline definitions. Branch protection rules and mandatory code reviews will be enforced.
-  * **Continuous Integration:** Cloud Build will be used to automate the build, testing, and packaging of application components and data pipelines. Each commit will trigger a build that runs unit tests, static code analysis, and security scans.
-  * **Continuous Deployment:** Cloud Deploy will be used to manage the deployment process to different environments (Dev, Staging, Prod). A blue-green deployment strategy will be used for critical components like the API service, allowing for zero-downtime releases and instant rollbacks. Canary releases will be used for gradual rollouts of new features.
+A mature, automated CI/CD pipeline is fundamental to the operational excellence of this platform.
+
+  * **Source Control**: All artifacts, including Dataflow pipeline code, Cloud Composer DAGs, API function code, and infrastructure definitions (Terraform), will be stored in a **Git-based repository** (e.g., GitHub, Cloud Source Repositories). Branch protection rules will be enforced, requiring pull requests and peer reviews for all changes to the `main` branch.
+  * **Build & Test Pipeline**: **Cloud Build** will be used to automate the build and test process. When code is merged, Cloud Build will trigger a pipeline that:
+    1.  Runs unit and integration tests.
+    2.  Performs static code analysis and security scans.
+    3.  Builds container images for execution environments.
+    4.  Stores the container artifacts in Artifact Registry.
+  * **Deployment Strategy**: A **blue-green deployment** strategy will be used for critical components like the data processing pipelines and APIs. A new "green" version of the service is deployed alongside the existing "blue" version. After validation, traffic is switched to the new version. This allows for near-zero downtime deployments and provides an immediate rollback path by simply switching traffic back to the "blue" environment if an issue is detected.
 
 ### 9.2. Monitoring & Logging
 
-  * **Centralized Logging:** All application, system, and audit logs will be centralized in Cloud Logging. Structured logging (JSON) will be enforced to facilitate easier searching and analysis.
-  * **Metrics & Monitoring:** Cloud Monitoring will be used to collect performance metrics from all GCP services and custom application metrics. Custom dashboards will be created to provide at-a-glance views of system health, pipeline status, data quality metrics, and key business KPIs.
-  * **Alerting:** Proactive alerting will be configured in Cloud Monitoring. Alerts will be triggered based on thresholds for key metrics (e.g., high error rates, increased latency, data quality failures) and will be sent to the operations team via PagerDuty and Slack for timely response.
+Proactive and comprehensive monitoring is key to meeting the platform's \>99.9% availability target.
+
+  * **Application & Infrastructure Monitoring**: **Cloud Monitoring** will be the central tool for collecting and visualizing metrics. It will be used to track system health (CPU, memory), application performance (pipeline throughput, query latency), and custom business KPIs. Proactive alerting rules with defined escalation procedures will be created to notify the operations team of any deviations from established baselines.
+  * **Data Quality Monitoring**: Dataflow pipelines will include steps for automated data quality validation. Metrics on data completeness, accuracy, and timeliness will be published as custom metrics to Cloud Monitoring. Any significant data quality issues will trigger high-priority alerts to the data engineering team.
+  * **Centralized Logging**: **Cloud Logging** will aggregate logs from all GCP services (Dataflow, Cloud Functions, BigQuery, etc.). This provides a centralized and searchable repository for troubleshooting, security auditing, and performance analysis.
+  * **Operational Dashboards**: A set of dashboards will be created in Cloud Monitoring to provide at-a-glance visibility into the health of the platform. These will include a data pipeline dashboard (showing job status, throughput, latency), a resource utilization dashboard, and a user activity dashboard.
 
 ### 9.3. Disaster Recovery (DR)
 
-  * **RTO/RPO:** The architecture is designed to meet an RTO of \<4 hours and an RPO of \<1 hour.
-  * **Multi-Regional Architecture:** A warm standby model will be implemented. The entire infrastructure will be replicated in a secondary GCP region using Terraform. Data will be asynchronously replicated to the DR region, including GCS cross-region replication and BigQuery dataset snapshots.
-  * **Automated Failover:** In the event of a primary region failure, DNS will be updated via a semi-automated script to redirect traffic to the load balancer in the DR region. Cloud Composer will be used to orchestrate the failover of data pipelines. The process will be documented and tested regularly through DR drills.
+The DR strategy is designed to meet the stringent RTO of \<4 hours and RPO of \<1 hour.
+
+  * **Multi-Region Architecture**: The primary DR strategy involves a full, automated replication of the platform in a secondary GCP region. This includes:
+      * **Infrastructure**: Replicated using Infrastructure as Code (Terraform) via the CI/CD pipeline.
+      * **Data**: Critical GCS buckets and BigQuery datasets will be configured for cross-region replication.
+      * **Configuration**: All configurations and metadata stored in Cloud SQL will be replicated to a read replica in the DR region.
+  * **Automated Failover**: In the event of a primary region failure, documented and tested runbooks (automated scripts) will be executed to promote the secondary region to become the new primary. This includes promoting the Cloud SQL replica, updating DNS records, and redirecting data ingestion pipelines.
+  * **Regular Testing**: The entire DR failover and failback process will be tested on a regular basis (e.g., quarterly) to ensure its effectiveness and to familiarize the operations team with the procedures.
 
 ## 10\. Scalability & Performance
 
 ### 10.1. Scalability
 
-  * **Horizontal Scaling:** The architecture is designed for horizontal scalability.
-      * **Dataflow:** Will automatically scale worker nodes up or down based on the volume of data and the complexity of transformations.
-      * **BigQuery:** As a serverless data warehouse, it scales its compute and storage resources automatically to handle massive datasets and high concurrency of queries.
-      * **Cloud Run:** The API microservice will automatically scale the number of container instances based on incoming request traffic.
-  * **Vertical Scaling:** While horizontal scaling is preferred, certain components will leverage vertical scaling.
-      * **Vertex AI Notebooks:** Data scientists can dynamically change the machine type of their notebook instances, including adding powerful GPUs, to match the computational needs of their specific analysis or model training task.
-      * **Cloud SQL:** The instance size for the metadata database can be increased during a maintenance window if required, although the initial sizing will be planned for projected growth.
+The architecture is designed for massive scale by leveraging GCP's elastic and managed services.
+
+  * **Horizontal Scaling**:
+      * **Cloud Dataflow**: Automatically scales the number of worker nodes up or down based on the volume of data being processed and the complexity of the transformation logic. This ensures that peak loads (10TB/hour) can be handled efficiently without manual intervention.
+      * **BigQuery**: As a serverless data warehouse, BigQuery automatically allocates the necessary compute resources (slots) to execute queries in parallel, ensuring consistent performance even with hundreds of concurrent users.
+      * **Cloud Storage**: Scales seamlessly and automatically as data volume grows from the initial 5TB load to subsequent daily updates.
+  * **Vertical Scaling**: For stateful components, vertical scaling provides on-demand performance.
+      * **Vertex AI Notebooks**: Data scientists can dynamically select more powerful machine types with additional CPUs, RAM, or GPUs for specific tasks like model training, and then scale back down to a more cost-effective instance for general analysis.
+      * **Cloud SQL**: The database instance size can be vertically scaled up or down with minimal downtime to match the metadata workload.
+  * **Global Scaling**: The architecture can be deployed across multiple GCP regions to provide low-latency data access for a global user base and to comply with data residency regulations.
 
 ### 10.2. Performance
 
-  * **Query Performance:** The \<5 second query response time for 95% of queries will be achieved through several BigQuery optimizations:
-      * **Partitioning and Clustering:** Tables will be partitioned by date and clustered by frequently filtered columns to reduce the amount of data scanned per query.
-      * **Materialized Views:** Pre-computed materialized views will be created for common and complex aggregations used in Power BI dashboards.
-      * **BI Engine:** BigQuery BI Engine will be used to provide in-memory, sub-second responses for frequently accessed datasets in Power BI.
-  * **Ingestion Latency:** The \<5 minute end-to-end latency for streaming data will be met by using a streaming Dataflow pipeline that ingests data directly from Pub/Sub and writes to BigQuery in near real-time.
-  * **API Performance:** The RESTful API will be optimized for low latency by using Cloud Run for fast container start-up times and by implementing application-level caching for frequently requested data. The Global External HTTPS Load Balancer with Cloud CDN will ensure low-latency access for geographically distributed users.
+Multiple strategies are employed to meet the stringent performance requirement of \<5 second query response time.
+
+  * **Query Optimization**:
+      * **BigQuery Partitioning & Clustering**: All large fact tables in BigQuery will be partitioned by date (e.g., `transaction_date`) and clustered by frequently filtered columns (e.g., `customer_id`, `product_category`). This dramatically reduces the amount of data scanned for each query.
+      * **Materialized Views**: For common and complex aggregations (e.g., daily sales summaries), materialized views will be pre-calculated and stored. Queries hitting these views will return in milliseconds.
+  * **In-Memory Caching**:
+      * **BigQuery BI Engine**: BI Engine will be enabled for the Power BI connection. It provides an in-memory analysis service that intelligently caches frequently accessed data, accelerating query response times to the sub-second level for dashboards and interactive reports.
+      * **Application-Level Caching**: For the REST APIs, a caching layer (e.g., using Memorystore for Redis) will be implemented to cache common query results, reducing the load on BigQuery and providing faster responses to downstream applications.
+  * **Network Performance**: For any static assets associated with the platform's user interfaces (if any), a **Content Delivery Network (CDN)** will be used to cache content at edge locations closer to users, minimizing latency and improving the user experience.
 
 ## 11\. Cost Estimation & Optimization
 
 ### 11.1. High-Level Cost Breakdown
 
-The following is a Rough Order of Magnitude (ROM) monthly cost estimate. Actual costs will vary based on usage.
+The following is a Rough Order of Magnitude (ROM) estimate for monthly operating costs, based on the requirements in the BRD. Actual costs will vary based on usage.
 
-| Service Category | Estimated Monthly Cost (USD) | Notes |
+| Service | Estimated Monthly Cost (USD) | Notes |
 | :--- | :--- | :--- |
-| BigQuery Storage & Compute | $15,000 - $25,000 | Primary cost driver, dependent on query volume and data size. |
-| Cloud Storage | $3,000 - $5,000 | Includes staging, raw data, and backup storage with lifecycle policies. |
-| Dataflow Processing | $8,000 - $12,000 | Dependent on data volume for batch and streaming jobs. |
-| Network & Data Transfer | $2,000 - $4,000 | Includes cross-cloud transfer from AWS and egress traffic. |
-| Monitoring & Operations | $1,000 - $2,000 | Includes Cloud Monitoring, Logging, and Composer costs. |
-| **Total Estimated Range** | **$29,000 - $48,000** | **This is a high-level estimate and should be refined.** |
+| BigQuery (Storage & Compute) | $15,000 - $25,000 | Primary cost driver. Dependent on query complexity, concurrency, and data growth. |
+| Cloud Storage (GCS) | $3,000 - $5,000 | Includes multi-region storage for critical data and archival tiers. |
+| Cloud Dataflow | $8,000 - $12,000 | Dependent on data volume and processing hours for both batch and streaming jobs. |
+| Network & Data Transfer | $2,000 - $4,000 | Primarily cross-cloud data transfer costs from AWS to GCP. |
+| Other Services & Operations | $1,000 - $2,000 | Includes Composer, Monitoring, Logging, API Gateway, etc. |
+| **Total Estimated Range** | **$29,000 - $48,000** | |
 
 ### 11.2. Cost Optimization Strategies
 
-  * **Data Lifecycle Management:** Implement GCS lifecycle policies to automatically transition aging data to cheaper storage classes (Nearline, Coldline, Archive), significantly reducing storage costs.
-  * **Resource Right-Sizing & Auto-scaling:** All compute services are serverless or configured to auto-scale, ensuring that we only pay for the resources we consume. This avoids the cost of over-provisioning.
-  * **Committed Use Discounts (CUDs):** For predictable workloads like the Cloud SQL instance and a baseline level of BigQuery compute, 1-year or 3-year CUDs will be purchased to achieve significant savings over on-demand pricing.
-  * **Query Optimization:** Enforce BigQuery best practices, such as avoiding `SELECT *` and using partitions, to minimize the amount of data scanned per query. Set up budget alerts to monitor query costs.
-  * **Spot VMs:** For non-critical, fault-tolerant batch processing workloads that can be orchestrated by Cloud Composer, consider using Spot VMs in Dataflow to achieve up to 90% savings on compute costs.
+A multi-faceted approach to cost optimization will be implemented to ensure the platform operates within budget and meets the 30% cost reduction target.
+
+  * **Data Lifecycle Management**: This is a key strategy for storage costs. GCS lifecycle policies will automatically transition raw and staging data to cheaper storage tiers (Nearline, Coldline) and eventually delete it. This prevents indefinite storage of non-essential raw data.
+  * **Resource Right-Sizing & Elasticity**: The serverless nature of Dataflow and BigQuery inherently optimizes costs by matching resources to demand. For provisioned resources like Vertex AI notebooks and Cloud SQL, usage will be regularly monitored to ensure instances are right-sized for their workload. Development environments will be scripted to shut down outside of business hours.
+  * **Reserved Capacity**: For predictable, steady-state workloads, **Committed Use Discounts (CUDs)** will be purchased for services like BigQuery and Cloud SQL. A one- or three-year commitment can provide significant savings (up to 70%) compared to on-demand pricing. **Sustained use discounts** will automatically apply to resources that run for a significant portion of the month.
+  * **Query and Pipeline Optimization**: BigQuery costs are driven by data scanned. Enforcing best practices such as partitioning, clustering, and avoiding `SELECT *` will be critical. Dataflow pipelines will be optimized to use efficient windowing strategies and worker configurations to minimize processing costs. Slot reservations for BigQuery will be considered for predictable, large-scale analytical workloads.
 
 ## 12\. Considerations & Limitations
 
 ### 12.1. Key Assumptions
 
-  * **Source System Stability:** The architecture assumes that the APIs and data structures of the source MySystemApp will remain stable during the implementation period. Any significant changes could require rework of the ingestion pipelines.
-  * **Network Performance:** It is assumed that a stable, high-bandwidth network connection between AWS and GCP can be provisioned and will be sufficient for the projected data volumes.
-  * **Stakeholder Availability:** The successful design and validation of the platform rely on the active participation and feedback from business stakeholders.
-  * **Data Growth Projections:** The architecture is designed based on current data growth projections. A growth rate exceeding 200% of the estimate may require re-evaluation of the scaling strategy.
-  * **Stable Regulatory Landscape:** The compliance framework is based on current GDPR, CCPA, and SOC 2 requirements and assumes no major changes during implementation.
+The design of this architecture is based on the following assumptions derived from the BRD:
+
+  * The data structures and APIs of the source MySystemApp are stable and will not undergo major changes during the project's implementation phase.
+  * A reliable and sufficient network connection (VPN/Interconnect) between the AWS and GCP environments will be provisioned and available.
+  * Key business stakeholders and subject matter experts will be available and will actively participate in requirements validation, UAT, and feedback sessions.
+  * The projected data growth will remain within a manageable range (not exceeding 200% of initial estimates) in the first year of operation.
+  * There will be no significant changes to the specified compliance and data residency requirements during the project lifecycle.
 
 ### 12.2. Risks & Mitigations
 
 | Risk | Likelihood | Impact | Mitigation Strategy |
 | :--- | :--- | :--- | :--- |
-| **Cross-Cloud Connectivity Failure** | Medium | High | Implement a redundant Cloud VPN setup alongside a primary Cross-Cloud Interconnect. Set up comprehensive monitoring with Cloud Monitoring to detect connectivity issues and trigger automated alerts for failover. |
-| **Data Volume Exceeds Projections** | Medium | Medium | Design the architecture for elastic scalability from the outset. Use serverless and auto-scaling services (Dataflow, BigQuery, Cloud Run). Conduct rigorous load testing using realistic data volumes to validate scaling mechanisms and identify bottlenecks before they impact production. |
-| **Security Breach / Data Exfiltration** | Low | High | Implement a defense-in-depth security model: VPC Service Controls for a data perimeter, Cloud Armor WAF, IAM with least privilege, and end-to-end encryption (CMEK). Continuously monitor for threats using Security Command Center and have a documented incident response plan. |
-| **Vendor Lock-in** | Low | Medium | Mitigate lock-in by using open standards and technologies where possible (e.g., Apache Airflow in Cloud Composer, SQL for queries). Maintain data portability by storing raw data in open formats (e.g., Avro, Parquet) on GCS, allowing for easier migration to other platforms if ever required. |
+| **Cross-Cloud Connectivity Failure** | Medium | High | Implement a highly-available, redundant network connection (e.g., dual VPN tunnels or primary/backup Interconnects). Use Cloud Monitoring for proactive monitoring of network health with automated alerts for outages. |
+| **Data Volume Exceeds Projections** | Medium | Medium | The architecture is designed with auto-scaling services (Dataflow, BigQuery, GCS). Performance and load testing will be conducted at 10x the expected data volumes to validate scalability and identify potential bottlenecks early. |
+| **Data Security Breach** | Low | High | A defense-in-depth security model is a core part of the design. This includes VPC Service Controls, end-to-end encryption with CMEK, principle of least privilege IAM, WAF, and continuous security monitoring to minimize the attack surface and detect threats. A formal incident response plan will be developed and tested. |
+| **Vendor Lock-in** | Medium | Low | While the platform is built on GCP, open standards and technologies will be used where practical (e.g., Apache Airflow in Composer, SQL for queries). Data will be stored in standard formats (e.g., Parquet in GCS) to ensure portability if a future migration is ever required. |
 
 ### 12.3. Known Limitations
 
-  * **Real-time Processing Latency:** While the goal is \<5 minute latency, achieving this for all data types and under all network conditions may be challenging. Initial batch loads or complex transformations might exceed this target.
-  * **Cross-Cloud Data Transfer Costs:** The ongoing cost of transferring data from AWS to GCP can be significant, especially for high-volume scenarios. This cost is a direct trade-off for achieving a unified analytics platform and must be continuously monitored.
-  * **Compliance Complexity:** Operating in a multi-cloud environment can add complexity to compliance audits and documentation. It requires careful management of controls and evidence gathering across both AWS and GCP.
-  * **Operational Overhead:** While heavily automated, managing components across two different cloud providers introduces operational complexity and requires specialized skill sets in both AWS and GCP, potentially increasing training and staffing costs.
+  * **Real-time Processing Latency**: The BRD specifies a \<5 minute latency target. While the architecture is designed to meet this, achieving it for 100% of data types may be challenging due to source system constraints, network variability, and the complexity of certain Dataflow transformations. The system is better described as "near real-time."
+  * **Cross-Cloud Data Transfer Costs**: Transferring 500GB of data daily from AWS to GCP will incur significant data egress costs from AWS. This is an unavoidable cost of the cross-cloud architecture and must be carefully budgeted for.
+  * **Compliance Complexity**: Managing and auditing compliance across two different cloud platforms (AWS for the source, GCP for analytics) introduces additional complexity compared to a single-cloud solution. This will require diligent documentation and potentially more complex audit procedures.
+  * **Operational Complexity**: The multi-cloud nature of this solution requires a team with specialized expertise in both AWS (for data extraction and networking) and GCP (for the data platform). This increases the operational overhead and talent requirements compared to a single-provider architecture.
