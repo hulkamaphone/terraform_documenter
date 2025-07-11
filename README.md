@@ -1,400 +1,369 @@
 # Cloud Solution Architecture
 
-**Project:** Cross-Cloud Data Lakehouse Analytics Platform
+**Project: Project Unify**
+**Version: 1.0**
+**Date: 2025-07-11**
 
-**Version:** 1.0
+-----
 
-**Date:** June 27, 2025
+### 1\. Overview & Executive Summary
 
-## Table of Contents
+#### 1.1. Introduction & Business Problem
 
-  * [1. Overview & Executive Summary](https://www.google.com/search?q=%231-overview--executive-summary)
-      * [1.1. Introduction & Business Problem](https://www.google.com/search?q=%2311-introduction--business-problem)
-      * [1.2. Proposed Solution](https://www.google.com/search?q=%2312-proposed-solution)
-      * [1.3. Key Benefits](https://www.google.com/search?q=%2313-key-benefits)
-  * [2. Scope](https://www.google.com/search?q=%232-scope)
-      * [2.1. In Scope](https://www.google.com/search?q=%2321-in-scope)
-      * [2.2. Out of Scope](https://www.google.com/search?q=%2322-out-of-scope)
-  * [3. Business Requirements & Architectural Drivers](https://www.google.com/search?q=%233-business-requirements--architectural-drivers)
-      * [3.1. Key Requirements Summary](https://www.google.com/search?q=%2331-key-requirements-summary)
-      * [3.2. Architectural Decisions](https://www.google.com/search?q=%2332-architectural-decisions)
-  * [4. Cloud and Application Architecture](https://www.google.com/search?q=%234-cloud-and-application-architecture)
-      * [4.1. Recommended Cloud Provider](https://www.google.com/search?q=%2341-recommended-cloud-provider)
-      * [4.2. Architecture Diagram](https://www.google.com/search?q=%2342-architecture-diagram)
-      * [4.3. Compute Architecture](https://www.google.com/search?q=%2343-compute-architecture)
-      * [4.4. Application Architecture](https://www.google.com/search?q=%2344-application-architecture)
-  * [5. Network Architecture](https://www.google.com/search?q=%235-network-architecture)
-      * [5.1. Network Topology](https://www.google.com/search?q=%2351-network-topology)
-      * [5.2. Traffic Flow](https://www.google.com/search?q=%2352-traffic-flow)
-      * [5.3. DNS & Connectivity](https://www.google.com/search?q=%2353-dns--connectivity)
-  * [6. Data Storage & Management](https://www.google.com/search?q=%236-data-storage--management)
-      * [6.1. Data Storage Solutions](https://www.google.com/search?q=%2361-data-storage-solutions)
-      * [6.2. Data Flow & Lifecycle](https://www.google.com/search?q=%2362-data-flow--lifecycle)
-      * [6.3. Backup and Recovery](https://www.google.com/search?q=%2363-backup-and-recovery)
-  * [7. Data and Application Integration](https://www.google.com/search?q=%237-data-and-application-integration)
-      * [7.1. Internal Integration](https://www.google.com/search?q=%2371-internal-integration)
-      * [7.2. External Integration](https://www.google.com/search?q=%2372-external-integration)
-  * [8. Security & Compliance](https://www.google.com/search?q=%238-security--compliance)
-      * [8.1. Identity and Access Management (IAM)](https://www.google.com/search?q=%2381-identity-and-access-management-iam)
-      * [8.2. Data Protection](https://www.google.com/search?q=%2382-data-protection)
-      * [8.3. Network Security](https://www.google.com/search?q=%2383-network-security)
-      * [8.4. Compliance](https://www.google.com/search?q=%2384-compliance)
-  * [9. Deployment & Operations (DevOps)](https://www.google.com/search?q=%239-deployment--operations-devops)
-      * [9.1. CI/CD Pipeline](https://www.google.com/search?q=%2391-cicd-pipeline)
-      * [9.2. Monitoring & Logging](https://www.google.com/search?q=%2392-monitoring--logging)
-      * [9.3. Disaster Recovery (DR)](https://www.google.com/search?q=%2393-disaster-recovery-dr)
-  * [10. Scalability & Performance](https://www.google.com/search?q=%2310-scalability--performance)
-      * [10.1. Scalability](https://www.google.com/search?q=%23101-scalability)
-      * [10.2. Performance](https://www.google.com/search?q=%23102-performance)
-  * [11. Cost Estimation & Optimization](https://www.google.com/search?q=%2311-cost-estimation--optimization)
-      * [11.1. High-Level Cost Breakdown](https://www.google.com/search?q=%23111-high-level-cost-breakdown)
-      * [11.2. Cost Optimization Strategies](https://www.google.com/search?q=%23112-cost-optimization-strategies)
-  * [12. Considerations & Limitations](https://www.google.com/search?q=%2312-considerations--limitations)
-      * [12.1. Key Assumptions](https://www.google.com/search?q=%23121-key-assumptions)
-      * [12.2. Risks & Mitigations](https://www.google.com/search?q=%23122-risks--mitigations)
-      * [12.3. Known Limitations](https://www.google.com/search?q=%23123-known-limitations)
+Global Logistics Corp. (GLC) is hindered by significant operational inefficiencies due to data fragmentation. Key systems, including the Azure-based Warehouse Management System (AzureWare), Salesforce CRM, and the Transportation Management System (TMS), operate in silos. This segregation makes it impossible to gain a holistic view of the supply chain, accurately assess client profitability, or perform the predictive analytics necessary for proactive decision-making. The current reliance on manual, spreadsheet-based analysis is slow, error-prone, and unscalable, preventing GLC from leveraging its data as a strategic asset.
 
-## 1\. Overview & Executive Summary
+#### 1.2. Proposed Solution
 
-### 1.1. Introduction & Business Problem
+This document outlines a modern, multi-cloud analytics platform designed to centralize and unify data from GLC's disparate systems. The proposed architecture establishes an **Analytics Lakehouse on Amazon Web Services (AWS)**. It will ingest near real-time transactional data from the AzureWare WMS on Microsoft Azure, along with daily batch data from Salesforce and the TMS.
 
-The organization currently faces significant challenges in accessing and analyzing critical business data stored in MySystemApp, which is hosted within a private AWS network. This data isolation creates barriers to data-driven decision-making, limits analytical capabilities, and prevents the organization from leveraging modern cloud analytics tools. The current state requires manual data extraction processes, lacks real-time insights, and cannot support the growing demands for self-service analytics and advanced data science capabilities.
+Key AWS services at the core of this solution include:
 
-### 1.2. Proposed Solution
+  * **Amazon S3** for a scalable and durable data lake.
+  * **AWS Glue** for serverless data integration, ETL, and cataloging.
+  * **Amazon Redshift** as a high-performance cloud data warehouse.
+  * **Amazon QuickSight** for business intelligence and interactive dashboarding.
+  * **AWS Database Migration Service (DMS)** and **AWS Site-to-Site VPN** to establish a secure and efficient data bridge from Azure to AWS.
 
-The proposed solution implements a comprehensive cloud analytics platform that bridges AWS and Google Cloud Platform (GCP) environments through a modern data lakehouse architecture. The solution will establish secure data ingestion pipelines from the AWS-hosted MySystemApp into a GCP-based analytics environment featuring Data Vault 2.0 methodology for the raw vault layer and star schema-modeled information marts. The platform will support multiple consumption patterns including Power BI reporting, Vertex AI notebooks for data science, and RESTful APIs for downstream system integration.
+#### 1.3. Key Benefits
 
-### 1.3. Key Benefits
+This solution directly addresses the core business challenges by transforming fragmented data into a unified, actionable asset. The architecture is designed to deliver the following key benefits:
 
-  * **Unified Data Access:** Eliminate data silos by centralizing analytics in a cloud-native lakehouse architecture.
-  * **Real-time Insights:** Enable near real-time data availability with \<5 minute latency for streaming workloads.
-  * **Scalable Architecture:** Support concurrent access for 500+ users with auto-scaling capabilities.
-  * **Advanced Analytics:** Provide data scientists with flexible, GPU-accelerated computing environments.
-  * **Self-Service Capabilities:** Empower business users with intuitive reporting tools and pre-built templates.
-  * **Cost Optimization:** Achieve 30% reduction in data processing costs through cloud-native efficiencies.
-  * **Compliance & Governance:** Implement enterprise-grade security, audit trails, and data lineage tracking.
+| Benefit Category | Description |
+| :--- | :--- |
+| **Data-Driven Decision Making** | Provides a single source of truth in Amazon Redshift, enabling a 360-degree view of client profitability and operational performance. |
+| **Operational Efficiency** | Automates data ingestion and transformation, drastically reducing the time for end-to-end order fulfillment analysis and eliminating manual, error-prone spreadsheet processes. |
+| **Performance & Scalability** | Leverages a cloud-native architecture that meets sub-10-second dashboard load times and sub-15-minute data latency requirements. The platform is designed to scale seamlessly with a 30% year-over-year data growth. |
+| **Proactive Insights** | Enables proactive SLA breach detection and alerting through near real-time data availability and powerful BI tools, shifting the business from a reactive to a proactive posture. |
+| **Security and Governance** | Implements robust security controls, including end-to-end encryption and role-based access, to protect sensitive data and ensure compliance with regulations like GDPR. |
+| **Future-Proof Foundation** | Establishes a flexible and scalable "Analytics Lakehouse" that can easily accommodate future phases, such as the development of machine learning models for predictive analytics. |
 
-## 2\. Scope
+-----
 
-### 2.1. In Scope
+### 2\. Scope
 
-  * Secure cross-cloud connectivity between AWS private network and GCP.
-  * Real-time and batch data ingestion pipelines from MySystemApp.
-  * Data Vault 2.0 implementation for historical data preservation and auditability.
-  * Star schema information marts for optimized analytical queries.
-  * ETL/ELT transformation pipelines with comprehensive data quality validation.
-  * Power BI integration with semantic models and self-service capabilities.
-  * Vertex AI notebook environment for data science and machine learning workloads.
-  * RESTful APIs and webhook integrations for downstream systems.
-  * Comprehensive monitoring, alerting, and operational dashboards.
-  * Data governance framework including cataloging, lineage, and access controls.
-  * Disaster recovery and business continuity capabilities.
+#### 2.1. In Scope
 
-### 2.2. Out of Scope
+  * **Systems Integration:** AzureWare (WMS), Salesforce (CRM), and the corporate TMS.
+  * **Core Platform Build:** The AWS Analytics Lakehouse, including the Amazon S3 data lake, AWS Glue ETL pipelines, and the Amazon Redshift data warehouse.
+  * **Data Processes:** Automated data ingestion, cleansing, transformation, cataloging, and storage.
+  * **Initial BI Functionality:** Delivery of two pre-built, interactive dashboards in Amazon QuickSight: "Operations Health" and "Client Profitability".
+  * **Target User Groups:** Operations Management, Finance Department, Client Account Managers, and Executive Leadership.
 
-  * Migration or modification of the source MySystemApp system.
-  * End-user training and change management programs.
-  * Third-party tool licensing and procurement.
-  * Network infrastructure provisioning (VPN/Interconnect setup).
-  * Custom application development beyond the analytics platform.
-  * Data migration from legacy systems other than MySystemApp.
-  * Mobile application development for analytics consumption.
+#### 2.2. Out of Scope
 
-## 3\. Business Requirements & Architectural Drivers
+  * **Source System Modification:** No changes will be made to the underlying architecture or functionality of AzureWare, Salesforce, or the TMS.
+  * **Transactional Write-Back:** The data flow is one-way into the analytics platform; there will be no real-time updates back to the source systems.
+  * **Advanced Analytics:** The development and implementation of machine learning models for predictive analytics are not part of this project phase.
+  * **End-User Training:** Training for business users on Amazon QuickSight will be managed under a separate initiative.
 
-### 3.1. Key Requirements Summary
+-----
 
-**Functional Requirements:**
+### 3\. Business Requirements & Architectural Drivers
 
-  * Support ingestion of 5TB initial data load and 500GB daily incremental updates.
-  * Handle peak processing loads of up to 10TB/hour with auto-scaling.
-  * Provide query response times \<5 seconds for 95% of analytical queries.
-  * Support 500+ concurrent users across multiple consumption tools.
-  * Maintain 99.9% data accuracy and completeness across all transformations.
-  * Enable real-time data streaming with \<5 minute end-to-end latency.
+#### 3.1. Key Requirements Summary
 
-**Non-Functional Requirements:**
+The architecture is driven by the following critical business requirements extracted from the BRD:
 
-  * System availability \>99.9% excluding planned maintenance windows.
-  * End-to-end encryption for data in transit and at rest.
-  * Role-based access control with integration to enterprise identity systems.
-  * Compliance with GDPR, CCPA, and industry security standards (SOC 2, ISO 27001).
-  * Recovery Time Objective (RTO) \<4 hours and Recovery Point Objective (RPO) \<1 hour.
-  * Comprehensive audit logging and data lineage tracking capabilities.
+| ID | Requirement Category | Requirement Description |
+| :--- | :--- | :--- |
+| **FR-1** | Data Ingestion | Near real-time (\<15 min latency) ingestion from Azure SQL and daily batch ingestion from Salesforce & TMS. |
+| **FR-2** | Data Transformation | Unify and cleanse data from all sources into business-centric models; calculate key metrics like OTIF and Client Profitability. |
+| **FR-3** | Analytics & BI | Provide pre-built dashboards (Ops, Client) and allow ad-hoc SQL queries for power users. |
+| **FR-4** | Security & Access | Implement Role-Based Access Control (RBAC) and Row-Level Security for client-specific data. |
+| **NFR-1** | Performance | Dashboards must load in \<10 seconds; end-to-end data latency from AzureWare \<15 minutes. |
+| **NFR-2** | Scalability | Support 30% YoY data volume growth and 100 concurrent dashboard users during peak hours. |
+| **NFR-3** | Availability | The AWS analytics platform must maintain 99.5% uptime. |
+| **NFR-4** | Security & Compliance | Encrypt all data at rest and in transit; ensure GDPR compliance for PII. |
+| **NFR-5**| Governance | Maintain a comprehensive data catalog and implement automated data quality checks with alerting. |
+| **NFR-6** | Data Retention | Raw data must be retained for 7 years; processed data indefinitely. |
 
-### 3.2. Architectural Decisions
+#### 3.2. Architectural Decisions
 
-  * **Requirement: Cross-Cloud Integration** -\> **Decision:** Implement secure VPN/Interconnect between AWS and GCP with dedicated data transfer agents and encrypted transmission protocols to ensure reliable, high-bandwidth connectivity while maintaining network isolation.
-  * **Requirement: Historical Data Preservation** -\> **Decision:** Adopt Data Vault 2.0 methodology in the raw vault layer to maintain complete historical records, enable auditability, and support regulatory compliance through immutable data structures.
-  * **Requirement: Multi-User Analytics** -\> **Decision:** Deploy cloud-native, auto-scaling infrastructure using GCP services (BigQuery, Dataflow, Cloud Storage) to dynamically handle varying user loads and processing demands.
-  * **Requirement: Self-Service Analytics** -\> **Decision:** Implement Power BI integration with pre-built semantic models and standardized connectors to enable business users to create reports independently while maintaining data governance.
-  * **Requirement: Advanced Analytics** -\> **Decision:** Provide Vertex AI managed notebook environment with GPU acceleration and integrated ML services to support sophisticated data science workloads and model development.
-  * **Requirement: Data Quality Assurance** -\> **Decision:** Implement comprehensive data validation pipelines with automated quality checks, anomaly detection, and alerting mechanisms to ensure data reliability and trustworthiness.
+Each architectural choice is a direct response to the requirements, guided by the principles of the AWS Well-Architected Framework.
 
-## 4\. Cloud and Application Architecture
+| Requirement ID | Architectural Decision | Rationale & Fulfilled Requirement |
+| :--- | :--- | :--- |
+| **FR-1, NFR-1** | Use **AWS Database Migration Service (DMS)** with Change Data Capture (CDC) for Azure SQL ingestion. | Provides low-latency, near real-time replication to meet the \<15 minute data latency requirement. It is a managed service, reducing operational overhead. (Operational Excellence) |
+| **FR-1** | Use **AWS Glue Python Shell jobs or AWS AppFlow** for Salesforce/TMS ingestion. | Provides robust, serverless, and cost-effective batch processing capabilities for daily API/file-based extracts. (Cost Optimization, Operational Excellence) |
+| **FR-2, NFR-5** | Use **AWS Glue (ETL & Data Catalog)** for data transformation and governance. | A serverless Spark environment that scales automatically for data processing. The integrated Data Catalog is essential for data governance and meets the requirement for a central metadata repository. (Performance Efficiency, Operational Excellence) |
+| **FR-3, NFR-1, NFR-2** | Use **Amazon Redshift** as the data warehouse. | A high-performance, petabyte-scale data warehouse optimized for BI and analytical queries. Its concurrency scaling feature supports 100+ concurrent users, and its performance ensures \<10 second dashboard loads. (Performance Efficiency) |
+| **FR-4, NFR-4** | Implement security in-depth using **IAM Roles, Redshift RBAC, and VPC Endpoints**. | This layered approach ensures least-privilege access. Redshift's native support for Row-Level Security directly fulfills the requirement to restrict client manager data visibility. (Security) |
+| **NFR-2**| Design the architecture with **loosely coupled, managed services (S3, Glue, Redshift)**. | Loosely coupled architecture promotes scalability. Managed services allow each component to scale independently to handle the 30% YoY data growth without a complete re-architecture. (Performance Efficiency, Reliability) |
+| **NFR-3** | Deploy resources across **multiple Availability Zones (Multi-AZ)** within a single AWS Region. | This is a foundational best practice for achieving high availability and meeting the 99.5% uptime target by protecting against single data center failures. (Reliability) |
+| **NFR-4** | Use **AWS Site-to-Site VPN** for Azure-to-AWS connectivity and enable **encryption on all storage services**. | The VPN provides a secure, encrypted tunnel for data in transit. SSE on S3 and native Redshift encryption protect data at rest, fulfilling all encryption requirements. (Security) |
 
-### 4.1. Recommended Cloud Provider
+-----
 
-The recommended cloud provider for the analytics platform is **Google Cloud Platform (GCP)**.
+### 4\. Cloud and Application Architecture
 
-**Justification:**
+#### 4.1. Recommended Cloud Provider
 
-  * **Advanced Analytics and ML/AI:** The BRD specifies a requirement for advanced analytics and a Vertex AI managed notebook environment with GPU acceleration. GCP's strengths in these areas, particularly with services like BigQuery, Vertex AI, and its robust AI/ML ecosystem, make it a natural fit.
-  * **Data Lakehouse Capabilities:** GCP's services, including Google Cloud Storage, BigQuery, and Dataflow, are well-suited for building a modern data lakehouse architecture as proposed in the BRD.
-  * **Scalability and Performance:** The auto-scaling and serverless nature of many GCP services align with the requirements to handle peak processing loads of up to 10TB/hour and support 500+ concurrent users with low query response times.
-  * **Power BI Integration:** The BRD calls for Power BI integration, and GCP's BigQuery has native connectors for Power BI, enabling both DirectQuery and Import modes as required.
+**Amazon Web Services (AWS)** is the recommended cloud provider for the analytics platform. This decision is driven by the BRD's specification of AWS services and AWS's market-leading, mature, and deeply integrated suite of serverless analytics services (S3, Glue, Redshift, QuickSight) that directly map to the project's requirements for scalability, performance, and managed operations.
 
-While the source system is on AWS, a cross-cloud approach is explicitly stated as part of the solution. GCP's capabilities in data analytics and machine learning make it the ideal platform for the core analytics solution.
+#### 4.2. Architecture Diagram
 
-### 4.2. Architecture Diagram
+The diagram below illustrates the multi-cloud architecture, detailing the flow of data from source systems in Azure into the AWS Analytics Lakehouse for processing, storage, and visualization.
 
 ```mermaid
 graph TD
-    subgraph "AWS"
-        subgraph "Private VPC"
-            MySystemAppDB[("MySystemApp DB")]
-        end
-        DataTransferAgent[Data Transfer Agent]
-        MySystemAppDB -- Batch/Real-time --> DataTransferAgent
+    subgraph "External Sources"
+        crm["Salesforce CRM"]
+        tms["TMS System"]
     end
 
-    subgraph "Cross-Cloud Connection"
-        VPN/Interconnect[("Secure VPN/Interconnect")]
+    subgraph "Microsoft Azure"
+        wms_db["AzureWare WMS Azure SQL DB"]
     end
 
-    subgraph "Google Cloud Platform (GCP)"
-        subgraph "Data Ingestion"
-            CloudStorageRaw[("GCS Raw Data")]
-            DataTransferAgent -- Encrypted --> CloudStorageRaw
-        end
+    subgraph "Amazon Web Services"
+        s2s_vpn["Site-to-Site VPN"]
+        dms["AWS DMS"]
+        appflow["AWS AppFlow"]
 
-        subgraph "Data Processing & Storage"
-            Dataflow[("Dataflow (ETL/ELT)")]
-            BigQuery[("BigQuery Data Lakehouse")]
-            CloudSQL[("Cloud SQL (Metadata)")]
-            CloudStorageRaw -- Trigger --> Dataflow
-            Dataflow -- Data Vault 2.0 --> BigQuery
-            Dataflow -- Star Schema --> BigQuery
-            Dataflow -- Logs/Metrics --> CloudLogging
-            BigQuery -- Metadata --> CloudSQL
+        subgraph "AWS VPC"
+            subgraph "Data Lake Layer"
+                s3_raw["S3 Raw Zone"]
+                s3_processed["S3 Processed Zone"]
+            end
+            subgraph "Processing Layer"
+                glue_catalog["Glue Data Catalog"]
+                glue_etl["Glue ETL Job"]
+            end
+            subgraph "Warehouse Layer"
+                redshift_dw["Amazon Redshift"]
+            end
         end
-
-        subgraph "Data Consumption"
-            PowerBI[("Power BI")]
-            VertexAI[("Vertex AI Notebooks")]
-            APIs[("REST APIs")]
-            BigQuery -- Native Connector --> PowerBI
-            BigQuery -- Python Connector --> VertexAI
-            BigQuery -- API --> APIs
-        end
-
-        subgraph "Security & Governance"
-            IAM[("IAM")]
-            KMS[("Cloud KMS")]
-            VPCServiceControls[("VPC Service Controls")]
-            CloudLogging[("Cloud Logging & Monitoring")]
+        subgraph "Business Intelligence"
+            quicksight_bi["Amazon QuickSight"]
         end
     end
 
-    DataTransferAgent -- "VPN/Interconnect" --> VPN/Interconnect
-    VPN/Interconnect -- "VPN/Interconnect" --> CloudStorageRaw
+    %% Data Flows
+    wms_db --> s2s_vpn
+    s2s_vpn --> dms
+    dms --> s3_raw
 
-    style PowerBI fill:#F2C811
-    style VertexAI fill:#4285F4
-    style APIs fill:#34A853
+    crm -- "Daily Batch" --> appflow
+    tms -- "Daily Batch" --> appflow
+    appflow --> s3_raw
+
+    s3_raw --> glue_etl
+    glue_etl -- "Updates" --> glue_catalog
+    glue_etl -- "Cleansed Data" --> s3_processed
+    glue_etl -- "Transformed Data" --> redshift_dw
+    
+    redshift_dw --> quicksight_bi
 ```
 
-### 4.3. Compute Architecture
+**Diagram Explanation:**
 
-  * **Dataflow:** This serverless, fully managed data processing service will be used for both batch and real-time ETL/ELT pipelines. Its auto-scaling capabilities are ideal for handling the specified peak processing loads of up to 10TB/hour without manual intervention.
-  * **Vertex AI Notebooks:** For advanced analytics and machine learning, Vertex AI managed notebooks will provide data scientists with a flexible and powerful environment. The ability to attach GPU accelerators directly addresses the requirements for sophisticated workloads and model development.
-  * **Cloud Functions:** Simple, event-driven tasks, such as triggering a Dataflow job upon the arrival of new data in Cloud Storage, will be handled by Cloud Functions. This serverless approach is cost-effective for sporadic workloads.
+1.  A secure **Site-to-Site VPN** connects the Azure VNet and the AWS VPC.
+2.  **AWS DMS** performs ongoing replication from the Azure SQL DB, landing data in the **S3 Raw Zone**.
+3.  **AWS AppFlow** performs daily batch extractions from **Salesforce and the TMS**, also landing data in the S3 Raw Zone.
+4.  An **AWS Glue ETL job** is triggered to read from the Raw Zone, cleanse and transform the data, and update the **Glue Data Catalog**.
+5.  The Glue job writes transformed, structured data to **Amazon Redshift** for fast querying and writes a cleansed copy to the **S3 Processed Zone** for long-term storage and potential future use.
+6.  **Amazon QuickSight** connects to Redshift, providing BI dashboards to business users.
 
-### 4.4. Application Architecture
+#### 4.3. Compute Architecture
 
-An **event-driven, microservices-based architecture** is proposed.
+The compute architecture is predominantly **serverless**, minimizing operational overhead and aligning costs directly with usage.
 
-  * **Data Ingestion:** The arrival of new data in Google Cloud Storage will trigger events that launch Dataflow pipelines for processing. This event-driven approach ensures low latency for real-time data streams.
-  * **Data Processing:** The ETL/ELT logic will be encapsulated in modular Dataflow jobs, which can be developed, tested, and deployed independently. This aligns with a microservices approach, promoting agility and maintainability.
-  * **Data Consumption:** The consumption layer is decoupled from the data storage and processing layers. Downstream systems and users will interact with the platform through well-defined interfaces, such as the BigQuery API, native connectors, and custom REST APIs.
+  * **ETL and Data Processing:** **AWS Glue** will be used. This is a fully managed, serverless Apache Spark service. It automatically provisions, manages, and scales the required compute resources for ETL jobs, freeing the data engineering team from infrastructure management.
+  * **Orchestration and Automation:** **AWS Step Functions** and **AWS Lambda** will be used to orchestrate the daily batch jobs and automate responses to events (e.g., triggering a Glue job upon file arrival in S3). This serverless approach is highly cost-effective and reliable for event-driven workflows.
 
-## 5\. Network Architecture
+**Rationale:** A serverless compute strategy directly supports the **Operational Excellence** and **Cost Optimization** pillars of the AWS Well-Architected Framework. It eliminates the need for patching, scaling, and managing servers, allowing the team to focus on business logic.
 
-### 5.1. Network Topology
+#### 4.4. Application Architecture
 
-  * **VPCs:** The GCP environment will be segmented into multiple Virtual Private Clouds (VPCs) to isolate different environments (e.g., development, staging, production) and functional layers (e.g., data ingestion, data processing, data consumption).
-  * **Subnets:** Within each VPC, public and private subnets will be used to further segment the network. Public-facing components, such as the API Gateway, will reside in public subnets, while internal components, like the Cloud SQL metadata database, will be placed in private subnets.
-  * **CIDR Blocks:** CIDR blocks will be carefully planned to avoid IP address conflicts and to allow for future expansion. A hierarchical approach to CIDR block allocation will be used, with larger blocks assigned to VPCs and smaller, non-overlapping blocks assigned to subnets.
+The solution employs a hybrid **Event-Driven and Batch Processing** architecture.
 
-### 5.2. Traffic Flow
+  * **Event-Driven:** The ingestion from the AzureWare WMS is event-driven. A change in the source database is an event that is captured by DMS and triggers the downstream processing pipeline. This pattern is essential for meeting the near real-time data latency requirement of under 15 minutes.
+  * **Batch Processing:** Ingestion from Salesforce and the TMS is handled via scheduled daily batch jobs, which aligns with their less stringent latency requirements and is a cost-effective method for bulk data movement.
 
-  * **Ingress:** Data will enter the GCP environment from AWS through a secure VPN/Interconnect, landing in a GCS staging bucket. User access to Power BI and Vertex AI will be managed through their respective authentication mechanisms, with data queries sent to BigQuery over secure connections.
-  * **Egress:** Downstream systems will access data via RESTful APIs exposed through an API Gateway, which will manage traffic and enforce rate limiting.
-  * **Internal:** Communication between components within the GCP environment will primarily use private IP addresses. Private Google Access will be enabled for services in private subnets to access other Google Cloud services without traversing the public internet.
+**Rationale:** This dual-pattern approach provides the flexibility to meet the distinct requirements of different source systems efficiently and cost-effectively, a core tenet of the **Performance Efficiency** pillar.
 
-### 5.3. DNS & Connectivity
+-----
 
-  * **DNS:** Cloud DNS will be used to manage the DNS records for any custom domains used for APIs or other services.
-  * **Connectivity:** A high-bandwidth, low-latency connection between the AWS and GCP environments will be established using either a dedicated interconnect or a secure VPN tunnel. This connection will be encrypted to protect data in transit.
+### 5\. Network Architecture
 
-## 6\. Data Storage & Management
+#### 5.1. Network Topology
 
-### 6.1. Data Storage Solutions
+  * **AWS Virtual Private Cloud (VPC):** A new, dedicated VPC will be created in AWS to provide a logically isolated network environment.
+  * **Subnetting Strategy:** The VPC will be segmented into private and public subnets across at least two Availability Zones for high availability.
+      * **Private Subnets:** All data-centric resources, including the Amazon Redshift cluster and AWS Glue VPC endpoints, will be placed in private subnets with no direct internet access, adhering to the principle of least privilege.
+      * **Public Subnets:** Will contain the NAT Gateways to allow resources in private subnets (like Glue jobs) to access external endpoints if necessary (e.g., downloading libraries), without being publicly exposed.
+  * **CIDR Blocks:** A non-overlapping CIDR block (e.g., 10.10.0.0/16) will be selected to prevent conflicts with GLC's existing Azure or on-premises networks.
 
-  * **Raw Data Storage:** Google Cloud Storage will be used for storing the raw data ingested from MySystemApp. Multi-regional storage will be used for critical data to ensure high availability, and lifecycle policies will be implemented to move older data to more cost-effective storage classes like Nearline or Coldline.
-  * **Data Vault & Information Marts:** BigQuery will serve as the core of the data lakehouse. The Data Vault 2.0 raw vault will be implemented in BigQuery using hub, link, and satellite tables. This design supports historical data preservation and auditability. Star schema information marts, also in BigQuery, will provide optimized data models for analytical queries.
-  * **Metadata Management:** A Cloud SQL for PostgreSQL instance will be used to store metadata, including data lineage information, operational metrics, and configuration parameters.
+#### 5.2. Traffic Flow
 
-### 6.2. Data Flow & Lifecycle
+  * **Multi-Cloud Traffic (Azure -\> AWS):** All data traffic from the Azure SQL DB will be encrypted and routed securely through the Site-to-Site VPN connection. It will never traverse the public internet.
+  * **External Integration Traffic (Salesforce/TMS -\> AWS):** Traffic from cloud-based external systems like Salesforce will be ingested via AWS AppFlow, which uses encrypted TLS 1.2 connections over the public internet.
+  * **Internal AWS Traffic:** To enhance security and performance, **VPC Endpoints** (for S3 and Glue) will be used. This ensures that traffic between our application components and these AWS services stays within the AWS network backbone.
+  * **User Traffic (BI):** End-users will access QuickSight dashboards securely over the internet via HTTPS.
 
-  * **Ingestion:** Data will be extracted from MySystemApp, transmitted securely to GCP, and landed in a staging GCS bucket.
-  * **Processing:** Dataflow pipelines will process the raw data, transforming it and loading it into the Data Vault and information marts in BigQuery. Data quality checks will be performed at this stage.
-  * **Consumption:** Users will access the data through various tools. All access and usage will be tracked and monitored.
-  * **Archival:** Data will be archived according to retention policies, with older data moved to cheaper storage tiers and eventually purged as required by regulations.
+#### 5.3. DNS & Connectivity
 
-### 6.3. Backup and Recovery
+  * **Cloud-to-Cloud Connectivity:** An **AWS Site-to-Site VPN** will be established between the GLC Azure Virtual Network (VNet) and the AWS VPC. This provides a stable, secure, and encrypted connection for the DMS replication traffic.
+  * **DNS:** Amazon Route 53 will be used for any public-facing DNS needs, though none are required for this phase. Internal DNS resolution will be handled by the default VPC DNS resolver.
 
-  * **Automated Snapshots:** BigQuery's automated snapshot feature will be used to create daily snapshots of the datasets with a 30-day retention period.
-  * **Cross-Region Replication:** Critical datasets in BigQuery and Cloud Storage will be replicated across regions to provide geographic redundancy and support disaster recovery.
-  * **Point-in-Time Recovery:** BigQuery's time travel feature will be utilized for operational recovery, allowing for the restoration of data to any point within the past 7 days.
+-----
 
-## 7\. Data and Application Integration
+### 6\. Data Storage & Management
 
-### 7.1. Internal Integration
+#### 6.1. Data Storage Solutions
 
-  * **Service Communication:** REST APIs will be used for synchronous communication between platform components, while Cloud Pub/Sub will be used for asynchronous messaging and event-driven processing.
-  * **Data Pipeline Orchestration:** Cloud Composer (managed Apache Airflow) will be used to orchestrate the data pipelines, managing dependencies between ingestion, transformation, and loading processes.
-  * **Monitoring Integration:** Cloud Monitoring and Logging will provide centralized operational visibility, with custom dashboards and alerting rules for proactive issue detection.
+The architecture utilizes a Lakehouse pattern, leveraging different storage solutions for specific needs.
 
-### 7.2. External Integration
+| Data Store | AWS Service | Purpose | Rationale |
+| :--- | :--- | :--- | :--- |
+| **Data Lake** | **Amazon S3** | Storage of raw, immutable source data and cleansed, processed data in Parquet format. | Unmatched durability (99.999999999%) and scalability to handle 30% YoY growth. Its cost-effectiveness and integration with Glue and Redshift make it the ideal foundation for the lakehouse. |
+| **Data Warehouse** | **Amazon Redshift** | The central, high-performance analytical engine for all BI dashboards and ad-hoc queries. | Massively Parallel Processing (MPP) architecture delivers low-latency query results required for \<10s dashboard loads. Provides standard SQL interface for power users and robust concurrency features. |
 
-  * **Source System:** Secure API connections will be established with MySystemApp for data ingestion, using service accounts and API keys for authentication.
-  * **Power BI:** Native BigQuery connectors will be used for Power BI integration, supporting both DirectQuery and Import modes.
-  * **Downstream Systems:** RESTful APIs with comprehensive documentation, rate limiting, and monitoring will be provided for external system integration.
-  * **Identity System:** SAML/OAuth 2.0 integration with the enterprise Active Directory will enable seamless single sign-on.
+#### 6.2. Data Flow & Lifecycle
 
-## 8\. Security & Compliance
+1.  **Ingestion:** Raw data lands in the `s3://project-unify-raw/` bucket.
+2.  **Transformation:** Glue ETL jobs process raw data, staging the output in the `s3://project-unify-processed/` bucket in the optimized Apache Parquet format.
+3.  **Loading:** The processed data is loaded into Amazon Redshift using the `COPY` command for optimal performance.
+4.  **Archival & Retention:** An **S3 Lifecycle Policy** will be configured on the `project-unify-raw` bucket to automatically transition data older than 30 days to S3 Standard-IA, and then to S3 Glacier Deep Archive after 90 days, where it will be retained for 7 years before deletion, meeting cost and compliance goals. Processed data in Redshift will be retained indefinitely for trend analysis.
 
-### 8.1. Identity and Access Management (IAM)
+#### 6.3. Backup and Recovery
 
-  * **Authentication:** Integration with the enterprise identity provider will be established using SAML 2.0 and OAuth 2.0. Multi-factor authentication will be required for all administrative access.
-  * **Authorization:** A role-based access control (RBAC) model will be implemented with granular permissions aligned to business functions. The principle of least privilege will be strictly enforced.
-  * **Service Accounts:** Dedicated service accounts with rotating keys and minimal necessary permissions will be used for each component. Regular access reviews and automated de-provisioning will be implemented.
+  * **Amazon Redshift:** Automated snapshots will be enabled, with a recovery point objective (RPO) of 8 hours and a recovery time objective (RTO) of 4 hours. Snapshots will be copied to a secondary DR region.
+  * **Amazon S3:** Bucket Versioning will be enabled on all S3 buckets to protect against accidental deletions or overwrites. Cross-Region Replication (CRR) will be configured for the raw and processed data buckets to the DR region for business continuity.
 
-### 8.2. Data Protection
+-----
 
-  * **Encryption at Rest:** All data will be encrypted using Google Cloud KMS with customer-managed encryption keys (CMEK). Different key rings will be used for different data sensitivity levels.
-  * **Encryption in Transit:** TLS 1.3 will be used for all data transmission. A VPN tunnel with application-layer encryption will secure cross-cloud communication.
-  * **Data Classification:** Automated data classification and labeling based on content analysis will be implemented.
+### 7\. Data and Application Integration
 
-### 8.3. Network Security
+#### 7.1. Internal Integration
 
-```mermaid
-graph TD
-    subgraph "Internet"
-        User[("User")]
-        Attacker[("Attacker")]
-    end
+  * **API/Service Communication:** Communication between components is primarily asynchronous and event-driven.
+  * **Messaging/Eventing:** **Amazon S3 Events** will be used to trigger data processing. When a new file is delivered to the S3 Raw Zone by DMS or AppFlow, an S3 event will trigger an AWS Lambda function, which in turn starts the appropriate AWS Glue ETL job.
+  * **Orchestration:** **AWS Step Functions** will be used to manage and orchestrate the multi-step daily batch ingestion workflows from Salesforce and TMS, providing error handling, retries, and state management.
 
-    subgraph "GCP Security Perimeter"
-        WAF[("Cloud Armor (WAF/DDoS)")]
-        VPCServiceControls[("VPC Service Controls")]
-        Firewall[("Cloud Firewall")]
-    end
+#### 7.2. External Integration
 
-    subgraph "GCP VPC"
-        subgraph "Public Subnet"
-            APIGateway[("API Gateway")]
-        end
+  * **AzureWare (Azure SQL):** **AWS Database Migration Service (DMS)** is the chosen tool. It will be configured with a source endpoint in Azure and a target endpoint in AWS. An ongoing replication task using Change Data Capture (CDC) will stream changes from Azure to the S3 raw bucket. This is the most efficient method to meet the near real-time (\<15 min) requirement.
+  * **CRM (Salesforce) & TMS:** **AWS AppFlow** provides a fully-managed, no-code integration service with a native Salesforce connector. It will be used for the daily batch extraction. For the TMS, which uses file extracts, a Glue Python Shell job will be used to fetch and land the files in S3.
 
-        subgraph "Private Subnet"
-            Dataflow -- "Private Google Access" --> BigQuery
-            VertexAI -- "Private Google Access" --> BigQuery
-            CloudSQL
-        end
-    end
+-----
 
-    User -- "HTTPS" --> WAF
-    Attacker -- "Blocked" --> WAF
-    WAF -- "Filtered Traffic" --> APIGateway
-    APIGateway -- "VPC Service Controls" --> VPCServiceControls
-    VPCServiceControls -- "Controlled Access" --> BigQuery
-    APIGateway -- "Firewall Rules" --> Firewall
-    Firewall -- "Allowed Traffic" --> Dataflow
-```
+### 8\. Security & Compliance
 
-  * **Network Segmentation:** The use of private VPCs with subnet isolation will create distinct network layers for different functionalities.
-  * **Perimeter Security:** Google Cloud Armor will provide a Web Application Firewall (WAF) and DDoS protection for API endpoints. VPC Service Controls will create a secure perimeter around sensitive data in BigQuery and Cloud Storage.
-  * **Internal Security:** Private Google Access will be used for internal communication, preventing exposure to the public internet. Cloud Firewall rules will restrict traffic to necessary ports and protocols only.
+#### 8.1. Identity and Access Management (IAM)
 
-### 8.4. Compliance
+  * **Principle of Least Privilege:** This principle will be strictly enforced. All IAM roles and policies will grant only the permissions necessary for a service to perform its function.
+  * **Service Access:** AWS services (Glue, Redshift, DMS) will use **IAM Roles** to securely access other AWS resources (e.g., S3 buckets) without the need for long-term credentials.
+  * **User Access:** User access to QuickSight and Redshift will be managed via **IAM Identity Center**, federating with GLC's corporate identity provider (e.g., Azure AD). This centralizes user management and enforces corporate authentication standards.
 
-  * **GDPR & CCPA:** The architecture will incorporate features to support data subject rights, such as data disclosure, deletion, and opt-out capabilities, as well as data retention policies.
-  * **SOC 2 & ISO 27001:** The platform will be built with controls for security, availability, processing integrity, confidentiality, and privacy, with regular third-party audits to ensure compliance.
+#### 8.2. Data Protection
 
-## 9\. Deployment & Operations (DevOps)
+  * **Encryption at Rest:** All data stored in Amazon S3 will be encrypted using Server-Side Encryption with S3-Managed Keys (SSE-S3). The Amazon Redshift cluster will be launched with encryption enabled. This fulfills the NFR for data-at-rest encryption.
+  * **Encryption in Transit:** All data transfer between Azure and AWS will be encrypted by the **Site-to-Site VPN**. All access to AWS APIs, S3, and QuickSight will be over TLS 1.2 or higher. This fulfills the NFR for data-in-transit encryption.
 
-### 9.1. CI/CD Pipeline
+#### 8.3. Network Security
 
-A comprehensive CI/CD pipeline will be established using Google Cloud's developer tools (Cloud Build, Cloud Deploy, Artifact Registry). The pipeline will automate the building, testing, and deployment of all platform components, including infrastructure as code (IaC), Dataflow jobs, and APIs.
+  * **Perimeter Security:** The network perimeter is secured by the VPC. Network ACLs will be used as a stateless firewall for subnets, and Security Groups will act as stateful firewalls for resources like the Redshift cluster.
+  * **Internal Security:** Access to the Redshift cluster will be tightly controlled by a security group that only allows inbound traffic from the AWS Glue service (via its VPC endpoint). All other traffic will be denied.
 
-### 9.2. Monitoring & Logging
+#### 8.4. Compliance
 
-  * **Centralized Logging:** Cloud Logging will be used to centralize all logs from the platform's components.
-  * **Metrics & Dashboards:** Cloud Monitoring will be used to collect and visualize key performance indicators (KPIs) and operational metrics. Custom dashboards will be created to provide real-time visibility into the platform's health and performance.
-  * **Alerting:** Alerting rules will be configured to proactively notify the operations team of any issues or anomalies.
+  * **GDPR:** The solution addresses the GDPR compliance requirement by proposing a PII handling strategy. During the Glue ETL process, a data discovery and classification step will identify PII within fields like `DestinationAddress`. This PII will be masked or tokenized before being loaded into the main Redshift tables accessible by business users, ensuring sensitive personal data is protected. The raw, unaltered data containing PII will remain encrypted and archived in a restricted-access S3 location.
 
-### 9.3. Disaster Recovery (DR)
+-----
 
-  * **Automated Failover:** The environment will be replicated in a secondary GCP region, with automated failover capabilities to meet the RTO of \<4 hours and RPO of \<1 hour.
-  * **Regular Testing:** The DR plan will be regularly tested to ensure its effectiveness and to identify any potential issues.
+### 9\. Deployment & Operations (DevOps)
 
-## 10\. Scalability & Performance
+#### 9.1. CI/CD Pipeline
 
-### 10.1. Scalability
+A fully automated CI/CD pipeline will be implemented using AWS Developer Tools to ensure rapid, reliable, and repeatable deployments.
 
-The serverless and auto-scaling nature of the chosen GCP services (Dataflow, BigQuery, Cloud Functions) will allow the platform to dynamically scale to handle varying user loads and processing demands, including the specified 500+ concurrent users and peak processing loads of up to 10TB/hour.
+  * **Source:** AWS CodeCommit will host all Infrastructure as Code (Terraform) and ETL script (PySpark) repositories.
+  * **Build:** AWS CodeBuild will be used to validate Terraform code, run unit tests on Python scripts, and package deployment artifacts.
+  * **Deploy:** AWS CodePipeline will orchestrate the entire workflow, deploying infrastructure changes and updated Glue jobs automatically to development, staging, and production environments with manual approval gates for production promotion.
 
-### 10.2. Performance
+#### 9.2. Monitoring & Logging
 
-  * **Low-Latency Queries:** BigQuery's architecture is optimized for fast analytical queries. The use of star schema information marts, materialized views, and aggregate tables will further enhance query performance to meet the \<5 second response time requirement.
-  * **GPU Acceleration:** The availability of GPU acceleration in Vertex AI Notebooks will provide the necessary performance for sophisticated data science and machine learning workloads.
+  * **Amazon CloudWatch** will be the central service for monitoring, logging, and alerting.
+  * **Metrics:** Key metrics will be monitored, including Redshift CPU Utilization, storage capacity, Glue ETL job execution time and success/failure rates, and DMS replication latency.
+  * **Logs:** All application and service logs will be centralized in CloudWatch Logs for analysis and troubleshooting.
+  * **Alarms:** CloudWatch Alarms will be configured to meet NFRs. An alarm will trigger if DMS replication latency exceeds 15 minutes or if a data quality check in a Glue job fails, sending an alert to the data engineering team via Amazon SNS.
 
-## 11\. Cost Estimation & Optimization
+#### 9.3. Disaster Recovery (DR)
 
-### 11.1. High-Level Cost Breakdown
+An **Active-Passive DR strategy** will be implemented to ensure business continuity.
 
-A detailed cost estimation will be provided in a separate document. However, the key cost drivers are expected to be:
+  * **DR Site:** A secondary AWS Region will be designated as the DR site.
+  * **Data Replication:** Amazon S3 Cross-Region Replication (CRR) will continuously replicate data from the primary region's data lake to the DR region. Automated Redshift snapshot copies will also be sent to the DR region.
+  * **Recovery:** In the event of a primary region failure, the entire infrastructure stack can be provisioned in the DR region using the Terraform IaC scripts from the CI/CD pipeline. A DNS cutover in Route 53 would redirect QuickSight users to the newly active environment. This strategy balances cost with a robust recovery capability.
 
-  * **BigQuery:** Storage and query processing costs.
-  * **Dataflow:** vCPU and memory usage for data processing jobs.
-  * **Cloud Storage:** Storage and data transfer costs.
-  * **Vertex AI:** Notebook instance and GPU usage costs.
-  * **Network:** Data transfer costs for cross-cloud connectivity.
+-----
 
-### 11.2. Cost Optimization Strategies
+### 10\. Scalability & Performance
 
-  * **Serverless:** The use of serverless services like Dataflow and Cloud Functions will help to minimize costs by only paying for the resources used during execution.
-  * **Auto-scaling:** BigQuery and Dataflow's auto-scaling capabilities will ensure that resources are scaled up and down based on demand, avoiding over-provisioning.
-  * **Storage Lifecycle Management:** Lifecycle policies in Cloud Storage will automatically move older data to cheaper storage tiers.
-  * **Reserved Instances:** For predictable workloads, such as the Cloud SQL metadata database, reserved instances can be used to reduce costs.
+#### 10.1. Scalability
 
-## 12\. Considerations & Limitations
+The architecture is designed for elastic scalability to meet both current and future demand.
 
-### 12.1. Key Assumptions
+  * **Storage:** Amazon S3 provides virtually limitless scalability for the data lake, easily accommodating the 30% YoY growth projection.
+  * **Compute:** AWS Glue is serverless and scales compute resources for ETL jobs automatically based on workload demands.
+  * **Data Warehouse:** Amazon Redshift's **Concurrency Scaling** feature will be enabled, which automatically adds transient cluster capacity to handle spikes in concurrent queries, ensuring performance for the 100 concurrent users. **Elastic Resize** allows for the seamless scaling of the base cluster to handle long-term data volume growth.
 
-  * The source MySystemApp system can be accessed securely from the GCP environment.
-  * The necessary network infrastructure (VPN/Interconnect) can be provisioned.
-  * The enterprise identity provider supports SAML/OAuth 2.0 integration.
+#### 10.2. Performance
 
-### 12.2. Risks & Mitigations
+Multiple features are leveraged to meet the stringent performance requirements.
 
-  * **Risk:** Data exfiltration during cross-cloud data transfer. **Mitigation:** Use of encrypted VPN/Interconnect and application-layer encryption.
-  * **Risk:** Performance bottlenecks in the data pipelines. **Mitigation:** Use of auto-scaling Dataflow and regular performance testing.
-  * **Risk:** Unauthorized access to sensitive data. **Mitigation:** Implementation of a robust IAM model with the principle of least privilege, and VPC Service Controls.
+  * **Query Performance:** Amazon Redshift's columnar storage and MPP architecture are designed for the high-speed analytical queries needed to meet the **\<10 second dashboard load time**.
+  * **BI Performance:** Amazon QuickSight's **SPICE (Super-fast, Parallel, In-memory Calculation Engine)** will be used for key dashboards. It pre-aggregates and caches data in-memory for extremely fast visualizations.
+  * **Data Latency:** AWS DMS using CDC ensures the **\<15 minute end-to-end data latency** requirement is met for the most time-sensitive data from the WMS.
 
-### 12.3. Known Limitations
+-----
 
-  * The solution is dependent on the availability and performance of both the AWS and GCP cloud platforms.
-  * The cost of the solution is subject to changes in the pricing of the underlying cloud services.
-  * The solution does not include end-user training, which will need to be addressed separately.
+### 11\. Cost Estimation & Optimization
+
+#### 11.1. High-Level Cost Breakdown
+
+A precise cost estimation requires detailed usage profiling. However, the primary cost drivers can be categorized in a Rough Order of Magnitude (ROM) as follows:
+
+| Cost Category | Key AWS Services | Primary Cost Driver |
+| :--- | :--- | :--- |
+| **Compute** | Amazon Redshift, AWS Glue | Redshift node hours, Glue DPU hours |
+| **Storage** | Amazon S3, Redshift Managed Storage | GB-months of data stored |
+| **Data Transfer** | AWS Site-to-Site VPN, DMS, NAT Gateway | GB of data transferred from Azure to AWS |
+| **Operations & BI** | Amazon QuickSight, CloudWatch | QuickSight user/session licenses, CloudWatch logs ingested |
+
+#### 11.2. Cost Optimization Strategies
+
+The following strategies will be implemented to ensure the platform operates in a cost-effective manner, adhering to the Cost Optimization pillar.
+
+  * **Utilize Reserved Instances:** For the production Amazon Redshift cluster, which will have a predictable, steady-state workload, purchasing **Reserved Instances** for a 1- or 3-year term will yield significant savings over on-demand pricing.
+  * **Right-Sizing:** AWS Compute Optimizer will be used periodically to analyze Redshift and Glue usage to ensure resources are right-sized.
+  * **Automated Tiering:** **S3 Intelligent-Tiering** will be used for the processed data zone to automatically move data to the most cost-effective storage tier based on access patterns.
+  * **Serverless First:** The extensive use of serverless services like Glue, Lambda, and AppFlow eliminates costs associated with idle compute capacity.
+  * **Resource Scheduling:** Development and staging Redshift clusters will be scripted to pause during non-business hours, reducing costs by up to 70%.
+
+-----
+
+### 12\. Considerations & Limitations
+
+#### 12.1. Key Assumptions
+
+  * **API Availability:** Stable and documented APIs or other data access methods are available and will be maintained for Salesforce and the TMS.
+  * **Network Performance:** The network connection between Azure and AWS has sufficient bandwidth and stability to support the DMS replication latency targets.
+  * **Data Quality:** Source systems are considered the source of truth. While the ETL process will cleanse and standardize data, it is assumed that the source data is fundamentally accurate.
+  * **Stakeholder Availability:** Business and IT stakeholders will be available for timely validations and testing.
+
+#### 12.2. Risks & Mitigations
+
+| Risk | Likelihood | Impact | Mitigation Strategy |
+| :--- | :--- | :--- | :--- |
+| **Source System API Changes** | Medium | Medium | Decouple extraction logic into dedicated Glue jobs/Lambda functions. This isolates the impact and allows for focused updates without re-architecting the entire pipeline. |
+| **Data Quality Issues from Source** | Medium | High | Implement extensive, automated data quality checks and validation rules within the Glue ETL jobs as per FR 5.5.2. Failed checks will quarantine data and trigger CloudWatch alerts. |
+| **VPN Connectivity Instability** | Low | High | Deploy the AWS Site-to-Site VPN across two tunnels for redundancy. Monitor the connection with CloudWatch and set up alarms for downtime. |
+| **Cost Overruns** | Medium | Medium | Implement AWS Budgets with alerts. Enforce tagging for cost allocation. Regularly review costs against KPIs and use the optimization strategies outlined in section 11.2. |
+
+#### 12.3. Known Limitations
+
+  * The solution delivers a near real-time analytics platform with a latency of up to 15 minutes; it is not a true, sub-second real-time streaming solution.
+  * This architecture focuses on establishing the foundational analytics platform. The development of predictive machine learning models is explicitly out of scope for this phase.
+  * The success of the platform is dependent on the quality and consistency of the data provided by the source systems. Significant data quality issues at the source may require remediation efforts that are outside the scope of this project.
