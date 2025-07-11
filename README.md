@@ -107,68 +107,77 @@ The primary analytics platform will be implemented on **Google Cloud Platform (G
 The following diagram illustrates the end-to-end architecture, from data ingestion in AWS to consumption in GCP.
 
 ```mermaid
-graph LR
-    %% AWS Environment
-    subgraph "AWS Environment"
-        direction LR
-        aws_mysystemapp["MySystemApp"]
-        aws_agent["Data Transfer Agent"]
-    end
-
-    %% Google Cloud Platform Environment
-    subgraph "Google Cloud Platform"
+graph TB
+    subgraph "External Consumers"
         direction TB
-        
-        subgraph "Network Layer"
-            gcp_interconnect["Cloud Interconnect/VPN"]
-            gcp_vpc["Analytics VPC"]
-            gcp_vpc_sc["VPC Service Controls Perimeter"]
-        end
+        power_bi["Power BI"]
+        vertex_ai["Vertex AI Notebooks"]
+        cloud_run["REST APIs (Cloud Run)"]
+    end
 
-        subgraph "Ingestion & Orchestration Layer"
-            gcp_gcs_landing["GCS Landing Zone"]
-            gcp_pubsub["Pub/Sub"]
-            gcp_dataflow["Dataflow ETL/ELT"]
-            gcp_composer["Cloud Composer"]
-        end
+    subgraph "Google Cloud Platform (GCP)"
+        direction TB
+        subgraph "Analytics VPC"
+          direction TB
+          subgraph "VPC Service Controls Perimeter"
+              direction TB
 
-        subgraph "Data Lakehouse Layer"
-            gcp_bq_raw["BigQuery Raw Vault (Data Vault 2.0)"]
-            gcp_bq_mart["BigQuery Info Marts (Star Schema)"]
-            gcp_cloudsql["Cloud SQL Metadata"]
-            gcp_datacatalog["Data Catalog"]
-        end
+              subgraph "Ingestion & Staging"
+                  gcs_landing["GCS Landing Zone"]
+                  pubsub["Pub/Sub"]
+              end
 
-        subgraph "Consumption Layer"
-            gcp_powerbi["Power BI"]
-            gcp_vertex["Vertex AI Notebooks"]
-            gcp_api["REST APIs (Cloud Run)"]
-        end
-        
-        subgraph "Operations"
-            gcp_monitoring["Monitoring & Logging"]
-            gcp_iam["Identity & Access Management"]
-            gcp_kms["Cloud KMS (CMEK)"]
+              subgraph "Processing & Orchestration"
+                  dataflow["Dataflow ETL/ELT"]
+                  composer["Cloud Composer"]
+              end
+
+              subgraph "Data Lakehouse"
+                  bq_raw["BigQuery Raw Vault"]
+                  bq_mart["BigQuery Info Marts"]
+                  cloud_sql["Cloud SQL Metadata"]
+                  datacatalog["Data Catalog"]
+              end
+          end
         end
     end
 
-    %% Data Flows
+    subgraph "Secure Cross-Cloud Connection"
+        interconnect["Cloud Interconnect / VPN"]
+    end
+
+    subgraph "AWS Private Cloud"
+        aws_agent["Data Transfer Agent"]
+        aws_mysystemapp["MySystemApp"]
+    end
+
+
+    %% --- Data & Control Flow ---
+
+    %% Ingestion
     aws_mysystemapp --> aws_agent
-    aws_agent --> gcp_interconnect
-    gcp_interconnect --> gcp_gcs_landing
-    gcp_gcs_landing --> gcp_pubsub
-    gcp_pubsub --> gcp_dataflow
-    gcp_dataflow <--> gcp_bq_raw
-    gcp_dataflow --> gcp_bq_mart
-    gcp_composer <--> gcp_dataflow
-    gcp_composer <--> gcp_gcs_landing
-    gcp_composer <--> gcp_cloudsql
-    gcp_bq_mart --> gcp_powerbi
-    gcp_bq_mart --> gcp_vertex
-    gcp_bq_mart <--> gcp_api
-    gcp_datacatalog <--> gcp_bq_raw
-    gcp_datacatalog <--> gcp_bq_mart
-    gcp_monitoring --> gcp_vpc
+    aws_agent -- "Secure Data Transfer" --> interconnect
+    interconnect --> gcs_landing
+
+    %% Processing
+    gcs_landing -- "File Trigger" --> pubsub
+    pubsub -- "Event Notification" --> dataflow
+    dataflow -- "Loads & Reads Raw Data" <--> bq_raw
+    dataflow -- "Populates Info Marts" --> bq_mart
+
+    %% Orchestration
+    composer -- "Orchestrates Jobs" --> dataflow
+    composer -- "Manages Files/Triggers" --> gcs_landing
+    composer -- "Stores/Reads Metadata" --> cloud_sql
+
+    %% Governance
+    bq_raw -- "Scans Metadata" --> datacatalog
+    bq_mart -- "Scans Metadata" --> datacatalog
+
+    %% Consumption
+    bq_mart -- "DirectQuery / Import" --> power_bi
+    bq_mart -- "Analysis & Model Training" --> vertex_ai
+    bq_mart -- "Serves Data" --> cloud_run
 ```
 
 **Diagram Explanation:**
@@ -210,6 +219,79 @@ The solution is designed as an **Event-Driven, Data Lakehouse Architecture**.
 #### 5.1. Network Topology
 
 The network is segmented to enforce the principle of least privilege and provide strong isolation between environments and functional layers.
+```mermaid
+graph TB
+    subgraph "AWS Private Cloud"
+        aws_mysystemapp["MySystemApp"]
+    end
+
+    subgraph "Secure Cross-Cloud Connection"
+        interconnect["Cloud Interconnect / VPN"]
+    end
+
+    subgraph "Google Cloud Platform (GCP)"
+        direction TB
+        
+        subgraph "Analytics VPC"
+          direction TB
+
+          subgraph "VPC Service Controls Perimeter"
+              direction TB
+
+              subgraph "Ingestion & Staging"
+                  gcs_landing["GCS Landing Zone"]
+                  pubsub["Pub/Sub"]
+              end
+
+              subgraph "Processing & Orchestration"
+                  dataflow["Dataflow (ETL/ELT)"]
+                  composer["Cloud Composer"]
+              end
+
+              subgraph "Data Lakehouse"
+                  bq_raw["BigQuery Raw Vault\n(Data Vault 2.0)"]
+                  bq_mart["BigQuery Info Marts\n(Star Schema)"]
+                  cloud_sql["Cloud SQL\n(Operational Metadata)"]
+              end
+          end
+
+          subgraph "Governance & Operations"
+              monitoring["Monitoring & Logging"]
+              iam["Identity & Access Management"]
+          end
+        end
+    end
+
+    subgraph "Consumption & Access Layer"
+        direction TB
+        power_bi["Power BI"]
+        vertex_ai["Vertex AI Notebooks"]
+        cloud_run["REST APIs (Cloud Run)"]
+    end
+
+    %% --- Data & Control Flow ---
+
+    %% Ingestion Flow
+    aws_mysystemapp -- "Secure Data Transfer" --> interconnect
+    interconnect -- "Lands Raw Data" --> gcs_landing
+    gcs_landing -- "File Trigger" --> pubsub
+    pubsub -- "Event Notification" --> dataflow
+
+    %% Processing & Lakehouse Flow
+    dataflow -- "Loads Raw Data" --> bq_raw
+    dataflow -- "Reads for Transformation" --> bq_raw
+    dataflow -- "Populates Business-Facing Tables" --> bq_mart
+
+    %% Orchestration Flow
+    composer -- "Orchestrates Jobs" --> dataflow
+    composer -- "Manages Files" --> gcs_landing
+    composer -- "Stores/Reads Metadata" --> cloud_sql
+
+    %% Consumption Flow
+    bq_mart -- "DirectQuery / Import" --> power_bi
+    bq_mart -- "Analysis & Model Training" --> vertex_ai
+    bq_mart -- "Serves Data" --> cloud_run
+```
 
   * **AWS VPC:** The existing private AWS VPC hosting `MySystemApp` will be the source. No changes will be made to its topology.
   * **GCP VPC:** A new Virtual Private Cloud (VPC) will be created in GCP.
@@ -286,6 +368,67 @@ The backup strategy is designed to meet the RTO/RPO of \<4 hours / \<1 hour resp
 -----
 
 ### 8\. Security & Compliance
+
+#### Security Diagram
+```mermaid
+graph TB
+    subgraph "External Users & Services"
+        users["Users (BI / Data Science)"]
+        downstream_systems["Downstream Systems"]
+    end
+
+    subgraph "Enterprise Identity"
+        idp["Enterprise IDP (e.g., Active Directory)"]
+    end
+
+    subgraph "GCP Security Controls"
+        direction TB
+
+        subgraph "Access Control Layer"
+            iam["GCP IAM (RBAC)"]
+            api_gateway["API Gateway & Cloud Armor (WAF)"]
+        end
+
+        subgraph "Network & Perimeter Security"
+            subgraph vpcn["Analytics VPC"]
+                subgraph vpcp["VPC Service Controls Perimeter"]
+                    data_services["GCS, BigQuery, Dataflow"]
+                end
+            end
+        end
+
+        subgraph "Data Protection Layer"
+            dlp["Cloud DLP (PII Scanning)"]
+            kms["Cloud KMS (Customer-Managed Encryption Keys - CMEK)"]
+            data_stores["Data Stores (GCS, BigQuery)"]
+        end
+    end
+
+    %% --- Data Flow and Control Application ---
+    users -- "1. Authenticates via SSO" --> idp
+    idp -- "2. SAML 2.0 Assertion" --> iam
+    users -- "3. Assumes Role via IAM" --> data_services
+    downstream_systems -- "API Call" --> api_gateway
+    api_gateway -- "Protected Access" --> data_services
+
+    data_stores -- "Encrypted by" --> kms
+    gcs_landing["GCS (Ingestion)" ] -- "4. Scanned on Ingestion" --> dlp
+
+    %% --- Color & Style Definitions ---
+    classDef external fill:#f3e8fd,stroke:#9333ea
+    classDef identity fill:#e0f2fe,stroke:#0ea5e9
+    classDef access fill:#fef9c3,stroke:#ca8a04
+    classDef network fill:#fee2e2,stroke:#ef4444
+    classDef data fill:#dcfce7,stroke:#22c55e
+
+    class users,downstream_systems external;
+    class idp,iam identity;
+    class api_gateway access;
+    class vpcn,vpcp,data_services network;
+    class dlp,kms,data_stores,gcs_landing data;
+
+    style vpcp stroke-dasharray: 5 5
+```
 
 #### 8.1. Identity and Access Management (IAM)
 
